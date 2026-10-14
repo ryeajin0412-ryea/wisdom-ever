@@ -1,0 +1,5379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07130E" />
+  <meta name="color-scheme" content="dark" />
+  <title>岁悦长青 · Wisdom Ever AI</title>
+  <style>
+    :root {
+      /* Bio-Tech · 东方生机翡翠 */
+      --bg-deep: #07130E;
+      --bg-mid: #0D2018;
+      --primary: #10B981;
+      --primary-quantum: #34D399;
+      --text-main: #E2E8F0;
+      --text-muted: #94A3B8;
+      --glass: rgba(10, 25, 18, 0.6);
+      --glass-strong: rgba(10, 25, 18, 0.78);
+      --glass-border: rgba(52, 211, 153, 0.25);
+      --aurora-deep: #0A1F18;
+      --input-bg: rgba(7, 19, 14, 0.55);
+      --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.28);
+      --shadow-glow: 0 0 24px rgba(52, 211, 153, 0.28), 0 0 48px rgba(16, 185, 129, 0.12);
+      --focus-ring: 0 0 0 3px rgba(16, 185, 129, 0.22), 0 0 18px rgba(52, 211, 153, 0.18);
+      /* 语义别名（全站复用） */
+      --moss-light: var(--bg-mid);
+      --moss: rgba(16, 185, 129, 0.14);
+      --moss-deep: rgba(52, 211, 153, 0.22);
+      --cedar: var(--text-main);
+      --cedar-mid: var(--primary-quantum);
+      --cedar-soft: var(--text-muted);
+      --lotus: rgba(244, 114, 182, 0.18);
+      --lotus-mid: rgba(251, 113, 133, 0.35);
+      --lotus-ink: #F9A8D4;
+      --el-wood: #34D399;
+      --el-fire: #F87171;
+      --el-earth: #FBBF24;
+      --el-metal: #CBD5E1;
+      --el-water: #60A5FA;
+      --radius: 28px;
+      --tap: 52px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      color-scheme: dark;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      color: var(--text-main);
+      background: transparent;
+      font-size: 20px;
+      line-height: 1.7;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(52, 211, 153, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 211, 153, 0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, #000 20%, transparent 75%);
+      animation: auroraGridDrift 24s linear infinite;
+    }
+
+    @keyframes auroraGridDrift {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 56px 28px, 28px 56px; }
+    }
+
+    /* Fluid Aurora — fixed behind content (z-index: -1), GPU transform animation */
+    .aurora-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      background: #07130E;
+      pointer-events: none;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      filter: blur(80px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      border-radius: 50%;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+    }
+
+    .blob-1 {
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      top: -140px;
+      left: -120px;
+      animation: move1 18s ease-in-out infinite alternate;
+    }
+
+    .blob-2 {
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #34D399, #047857);
+      top: 35%;
+      right: -160px;
+      animation: move2 22s ease-in-out infinite alternate;
+    }
+
+    .blob-3 {
+      width: 700px;
+      height: 700px;
+      background: linear-gradient(135deg, #A7F3D0, #065F46);
+      bottom: -220px;
+      left: 5%;
+      animation: move3 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes move1 {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(320px, 280px, 0) scale(1.35) rotate(28deg);
+      }
+    }
+
+    @keyframes move2 {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(-380px, 240px, 0) scale(1.28) rotate(-32deg);
+      }
+    }
+
+    @keyframes move3 {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(260px, -300px, 0) scale(1.22) rotate(18deg);
+      }
+    }
+
+    @keyframes auroraGlowFlow {
+      0%, 100% {
+        box-shadow: var(--shadow), 0 0 18px rgba(52, 211, 153, 0.18);
+        border-color: rgba(52, 211, 153, 0.25);
+      }
+      50% {
+        box-shadow: var(--shadow), 0 0 32px rgba(52, 211, 153, 0.38), 0 0 64px rgba(16, 185, 129, 0.16);
+        border-color: rgba(52, 211, 153, 0.42);
+      }
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 18px 64px;
+    }
+
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    header.brand.glass:hover,
+    .panel.glass:hover,
+    .tab:hover {
+      animation: auroraGlowFlow 2.8s ease-in-out infinite;
+    }
+
+    header.brand {
+      border-radius: var(--radius);
+      padding: 32px 24px 28px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .brand-lockup {
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      font-size: 15px;
+      letter-spacing: 0.28em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .brand-lockup em {
+      font-style: normal;
+      letter-spacing: 0.12em;
+      color: var(--primary-quantum);
+      text-shadow: 0 0 24px rgba(52, 211, 153, 0.35);
+    }
+
+    h1.greeting {
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0 0 14px;
+      letter-spacing: 0.12em;
+      line-height: 1.35;
+      color: var(--text-main);
+      text-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1.85;
+      margin: 0 0 22px;
+    }
+
+    .subtitle .mark {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      padding: 2px 8px;
+      border-radius: 8px;
+      color: var(--primary-quantum);
+    }
+
+    .name-field {
+      width: 100%;
+      min-height: var(--tap);
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-size: 20px;
+      text-align: center;
+      color: var(--text-main);
+      background: var(--input-bg);
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(52, 211, 153, 0.06);
+    }
+
+    .name-field:focus {
+      border-color: var(--primary-quantum);
+      box-shadow: var(--focus-ring);
+    }
+
+    .name-field::placeholder { color: var(--text-muted); font-size: 16px; opacity: 0.85; }
+
+    nav.tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    nav.tabs.six-grid .tab {
+      min-height: 84px;
+      padding: 14px 12px;
+    }
+
+    nav.tabs.six-grid .tab strong { font-size: 18px; }
+    nav.tabs.six-grid .tab span { font-size: 13px; line-height: 1.35; }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .upload-tile {
+      border: 1px dashed rgba(52, 211, 153, 0.28);
+      border-radius: 18px;
+      padding: 14px 10px;
+      text-align: center;
+      background: var(--input-bg);
+      cursor: pointer;
+      position: relative;
+      min-height: 100px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .upload-tile:hover {
+      border-color: rgba(52, 211, 153, 0.45);
+      box-shadow: 0 0 16px rgba(52, 211, 153, 0.12);
+    }
+
+    .upload-tile input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .upload-tile strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .upload-tile small {
+      font-size: 13px;
+      color: var(--cedar-soft);
+    }
+
+    .upload-tile.done {
+      border-color: var(--primary-quantum);
+      background: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.15);
+    }
+
+    .module-result {
+      margin-top: 16px;
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid var(--glass-border);
+    }
+
+    .module-result h4 {
+      margin: 0 0 10px;
+      font-family: "Songti SC", serif;
+      font-size: 20px;
+      color: var(--primary-quantum);
+    }
+
+    .style-swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .style-swatch {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      color: var(--primary-quantum);
+    }
+
+    .wellness-supplement {
+      border-radius: 16px;
+      padding: 14px;
+      margin-top: 10px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(7, 19, 14, 0.35) 100%);
+      border-left: 4px solid var(--primary);
+      border: 1px solid var(--glass-border);
+      border-left-width: 4px;
+      border-left-color: var(--primary);
+    }
+
+    .wellness-supplement.relevant {
+      border-left-color: var(--primary-quantum);
+      box-shadow: 0 0 20px rgba(52, 211, 153, 0.18);
+    }
+
+    .wellness-supplement .tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--primary-quantum);
+      margin-right: 6px;
+    }
+
+    .wellness-supplement .tag-hot {
+      background: rgba(251, 191, 36, 0.18);
+      color: #FCD34D;
+    }
+
+    .wellness-supplement .sup-block {
+      margin: 8px 0 0;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .wellness-supplement .sup-block strong {
+      color: var(--cedar-mid);
+    }
+
+    .wellness-forward-wrap {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(52, 211, 153, 0.22);
+      text-align: center;
+    }
+
+    .wellness-forward-btn {
+      width: 100%;
+      max-width: 420px;
+      min-height: 52px;
+      border: none;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #07130E;
+      background: linear-gradient(135deg, var(--primary-quantum) 0%, var(--primary) 100%);
+      box-shadow: 0 8px 28px rgba(16, 185, 129, 0.35), 0 0 20px rgba(52, 211, 153, 0.2);
+    }
+
+    .wellness-forward-btn:active {
+      transform: scale(0.98);
+    }
+
+    .wellness-share-text {
+      width: 100%;
+      min-height: 220px;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 15px;
+      line-height: 1.5;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      background: var(--input-bg);
+      color: var(--text-main);
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .wellness-warn {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      font-size: 15px;
+      color: #FCA5A5;
+    }
+
+    .wellness-sector {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.06) 0%, rgba(7, 19, 14, 0.4) 100%);
+      border: 1px solid var(--glass-border);
+    }
+
+    .wellness-sector h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: var(--primary-quantum);
+      letter-spacing: 0.04em;
+    }
+
+    .wellness-sector ul {
+      margin: 8px 0 0;
+      padding-left: 1.2em;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .wellness-spacetime-badge {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .wellness-spacetime-badge span {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--primary-quantum);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+
+    .wellness-exercise-combo {
+      margin: 10px 0 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+    }
+
+    .wellness-exercise-combo strong {
+      color: var(--primary-quantum);
+    }
+
+    .wellness-sport-catalog {
+      margin-top: 12px;
+    }
+
+    .wellness-sport-catalog h5 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .wellness-sport-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .wellness-sport-chip {
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid rgba(52, 211, 153, 0.18);
+      color: var(--text-muted);
+    }
+
+    .wellness-sport-chip.hot {
+      border-color: rgba(52, 211, 153, 0.45);
+      color: var(--primary-quantum);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .wellness-checkin {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(52, 211, 153, 0.2);
+    }
+
+    .wellness-checkin h5 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: var(--primary-quantum);
+    }
+
+    .wellness-checkin-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .wellness-checkin-row select,
+    .wellness-checkin-row input {
+      min-height: 48px;
+      font-size: 17px;
+    }
+
+    .wellness-checkin-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .wellness-checkin-done {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      font-size: 15px;
+      color: var(--primary-quantum);
+    }
+
+    .tab {
+      min-height: 92px;
+      border: none;
+      border-radius: 22px;
+      padding: 16px 14px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-main);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--glass-border);
+      transition: transform 0.15s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .tab:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+      box-shadow: var(--shadow-soft), var(--shadow-glow);
+    }
+
+    .tab:active { transform: scale(0.98); }
+
+    .tab strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .tab span {
+      display: block;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .tab.active {
+      background: linear-gradient(165deg, rgba(16, 185, 129, 0.18) 0%, rgba(15, 30, 23, 0.75) 100%);
+      box-shadow: var(--shadow), var(--shadow-glow);
+      outline: 1px solid rgba(52, 211, 153, 0.45);
+      outline-offset: 0;
+    }
+
+    .tab.active strong {
+      color: var(--primary-quantum);
+      text-shadow: 0 0 20px rgba(52, 211, 153, 0.25);
+    }
+
+    .panel {
+      display: none;
+      border-radius: var(--radius);
+      padding: 22px 18px 24px;
+    }
+
+    .panel.active { display: block; }
+
+    #panel-dialogue.star-skin {
+      background: linear-gradient(180deg, rgba(15, 30, 23, 0.72), rgba(30, 20, 40, 0.55));
+      border-color: rgba(244, 114, 182, 0.22);
+    }
+
+    .panel-title {
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 26px;
+      margin: 0 0 6px;
+      color: var(--text-main);
+      letter-spacing: 0.06em;
+    }
+
+    .panel-lead {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 17px;
+    }
+
+    .realm-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .realm-tab {
+      min-height: 64px;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 17px;
+      cursor: pointer;
+      padding: 10px 12px;
+      text-align: left;
+      font-family: inherit;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .realm-tab:hover {
+      box-shadow: 0 0 16px rgba(52, 211, 153, 0.12);
+    }
+
+    .realm-tab small {
+      display: block;
+      font-size: 13px;
+      color: var(--cedar-soft);
+      margin-top: 2px;
+    }
+
+    .realm-tab.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(7, 19, 14, 0.9) 100%);
+      color: var(--text-main);
+      border-color: rgba(52, 211, 153, 0.45);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .realm-tab.active small { color: var(--primary-quantum); }
+
+    .realm-tab.star.active {
+      background: linear-gradient(160deg, rgba(16, 185, 129, 0.2), rgba(30, 27, 75, 0.85));
+      border-color: rgba(244, 114, 182, 0.35);
+    }
+
+    .profile-stage {
+      position: relative;
+      border-radius: 22px;
+      padding: 4px 2px 12px;
+      margin-bottom: 14px;
+    }
+
+    .profile-stage.star {
+      padding: 14px 12px 16px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(244, 114, 182, 0.15), transparent 42%),
+        radial-gradient(circle at 88% 10%, rgba(52, 211, 153, 0.12), transparent 36%),
+        linear-gradient(180deg, rgba(7, 19, 14, 0.5), rgba(15, 30, 23, 0.65));
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(244, 114, 182, 0.15);
+    }
+
+    .sparkles {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    .sparkles i {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(244, 226, 229, 0.9);
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    .profile-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .profile-card {
+      min-height: 108px;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      background: rgba(15, 30, 23, 0.55);
+      color: var(--text-main);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 14px 12px;
+      text-align: left;
+      font-family: inherit;
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .profile-card:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+      box-shadow: var(--shadow-soft), 0 0 16px rgba(52, 211, 153, 0.12);
+    }
+
+    .profile-card .who-name {
+      display: block;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .profile-card small {
+      display: block;
+      font-size: 13px;
+      color: var(--cedar-soft);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .profile-card.active {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.35), rgba(7, 19, 14, 0.95));
+      color: var(--text-main);
+      border-color: rgba(52, 211, 153, 0.5);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .profile-card.active small { color: var(--primary-quantum); }
+
+    .profile-stage.star .profile-card.active {
+      background: linear-gradient(160deg, rgba(16, 185, 129, 0.25), rgba(30, 41, 59, 0.9));
+    }
+
+    .profile-card.add-card {
+      grid-column: 1 / -1;
+      min-height: 76px;
+      border: 2px dashed rgba(52, 211, 153, 0.35);
+      background: rgba(7, 19, 14, 0.35);
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .profile-card.add-card .plus {
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 4px;
+      color: var(--cedar);
+    }
+
+    .empty-realm {
+      grid-column: 1 / -1;
+      border-radius: 20px;
+      padding: 22px 18px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08), rgba(7, 19, 14, 0.55));
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.8;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .modal-card {
+      width: min(540px, 100%);
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 28px;
+      padding: 24px 20px 18px;
+      text-align: left;
+      background: var(--glass-strong);
+    }
+
+    .modal-card h3 {
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 24px;
+      margin: 0 0 6px;
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .field label {
+      display: block;
+      font-size: 16px;
+      color: var(--cedar-mid);
+      margin-bottom: 6px;
+    }
+
+    .field .text-input, .field select, .field textarea {
+      width: 100%;
+    }
+
+    .realm-choice {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .realm-choice label {
+      margin: 0;
+      min-height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: var(--input-bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 8px;
+    }
+
+    .realm-choice input { margin-right: 6px; }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .bazi-box, .voice-clone {
+      border-radius: 20px;
+      padding: 14px 14px 16px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 14px;
+      box-shadow: inset 0 1px 0 rgba(52, 211, 153, 0.08);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    label.quiet {
+      font-size: 16px;
+      color: var(--cedar-mid);
+    }
+
+    input[type="date"], select, textarea, .text-input {
+      min-height: var(--tap);
+      border-radius: 16px;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 20px;
+      padding: 10px 14px;
+      font-family: inherit;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(52, 211, 153, 0.06);
+    }
+
+    input[type="date"]:focus, select:focus, textarea:focus, .text-input:focus {
+      border-color: var(--primary-quantum);
+      box-shadow: var(--focus-ring);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .btn {
+      min-height: var(--tap);
+      border: none;
+      border-radius: 16px;
+      padding: 12px 18px;
+      font-size: 20px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-quantum) 0%, var(--primary) 100%);
+      color: #07130E;
+      font-weight: 600;
+      box-shadow: 0 6px 22px rgba(16, 185, 129, 0.3), 0 0 16px rgba(52, 211, 153, 0.15);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 8px 28px rgba(16, 185, 129, 0.4), var(--shadow-glow);
+    }
+
+    .btn-lotus {
+      background: rgba(244, 114, 182, 0.2);
+      color: var(--lotus-ink);
+      border: 1px solid rgba(244, 114, 182, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(52, 211, 153, 0.08);
+      color: var(--text-muted);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--primary-quantum);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      font-size: 15px;
+      margin: 8px 6px 0 0;
+    }
+
+    .bazi-card {
+      border-radius: 20px;
+      padding: 18px 16px;
+      background: linear-gradient(165deg, rgba(16, 185, 129, 0.1) 0%, rgba(7, 19, 14, 0.65) 100%);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      box-shadow: var(--shadow-soft), 0 0 24px rgba(16, 185, 129, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bazi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.5), transparent);
+    }
+
+    .bazi-card .bazi-line {
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      font-size: 18px;
+      line-height: 1.85;
+      color: var(--text-main);
+      margin: 0 0 6px;
+    }
+
+    .bazi-card .bazi-line:last-child { margin-bottom: 0; }
+
+    .bazi-card .bazi-line em {
+      font-style: normal;
+      color: var(--primary-quantum);
+      background: rgba(16, 185, 129, 0.15);
+      padding: 0 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      text-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
+    }
+
+    #pfBaziPreview { margin-top: 8px; }
+
+    .wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 28px;
+      margin-left: auto;
+    }
+
+    .wave i {
+      width: 4px;
+      background: var(--primary-quantum);
+      border-radius: 4px;
+      height: 8px;
+      animation: none;
+    }
+
+    .wave.live i {
+      animation: wave 1s ease-in-out infinite;
+    }
+
+    .wave i:nth-child(2) { animation-delay: 0.1s; }
+    .wave i:nth-child(3) { animation-delay: 0.2s; }
+    .wave i:nth-child(4) { animation-delay: 0.3s; }
+    .wave i:nth-child(5) { animation-delay: 0.15s; }
+    .wave i:nth-child(6) { animation-delay: 0.25s; }
+    .wave i:nth-child(7) { animation-delay: 0.05s; }
+
+    @keyframes wave {
+      0%, 100% { height: 6px; }
+      50% { height: 26px; }
+    }
+
+    .chat {
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 8px 4px 12px;
+      margin-bottom: 12px;
+    }
+
+    .bubble-row {
+      display: flex;
+      margin-bottom: 14px;
+    }
+
+    .bubble-row.me { justify-content: flex-end; }
+
+    .bubble {
+      max-width: 86%;
+      padding: 14px 16px;
+      border-radius: 22px;
+      font-size: 20px;
+      line-height: 1.65;
+    }
+
+    .bubble.ai {
+      background: rgba(15, 30, 23, 0.75);
+      border: 1px solid var(--glass-border);
+      border-top-left-radius: 6px;
+      color: var(--text-main);
+    }
+
+    .bubble.me {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.45), rgba(7, 19, 14, 0.95));
+      color: var(--text-main);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      border-top-right-radius: 6px;
+    }
+
+    .who {
+      font-size: 13px;
+      color: var(--cedar-soft);
+      margin-bottom: 4px;
+    }
+
+    .listen-btn {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--primary-quantum);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 15px;
+      cursor: pointer;
+      min-height: 40px;
+    }
+
+    .composer { display: flex; gap: 8px; }
+    .composer .text-input { flex: 1; }
+
+    .voice-input-btn {
+      width: 100%;
+      margin-top: 10px;
+      min-height: 58px;
+      font-size: 20px;
+    }
+
+    .hint {
+      font-size: 15px;
+      color: var(--cedar-soft);
+      margin: 8px 0 0;
+    }
+
+    .card-preview {
+      margin-top: 16px;
+      border-radius: 24px;
+      padding: 28px 22px;
+      background:
+        linear-gradient(180deg, rgba(15, 30, 23, 0.75), rgba(7, 19, 14, 0.85)),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(52, 211, 153, 0.06) 28px);
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      display: none;
+    }
+
+    .card-preview.show { display: block; }
+
+    .letter-flow-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 16px 0 8px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid var(--glass-border);
+    }
+
+    .letter-flow-steps .flow-line {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--cedar-mid);
+      margin: 0;
+    }
+
+    .letter-flow-steps .flow-line strong {
+      color: var(--cedar);
+      font-weight: 700;
+    }
+
+    .letter-flow-steps .flow-line.active {
+      color: var(--primary-quantum);
+      background: rgba(16, 185, 129, 0.12);
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+    }
+
+    .letter-flow-steps .flow-line.done {
+      color: var(--cedar-soft);
+    }
+
+    .letter-step-panel {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(52, 211, 153, 0.18);
+    }
+
+    .letter-step-panel.show { display: flex; }
+
+    .letter-step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--cedar);
+      margin: 0;
+    }
+
+    .letter-bazi-foundation {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .letter-bazi-foundation.show { display: block; }
+
+    .letter-step-btn {
+      width: 100%;
+      min-height: 56px;
+      border: none;
+      border-radius: 20px;
+      font-size: 19px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #07130E;
+      background: linear-gradient(145deg, var(--primary-quantum) 0%, var(--primary) 100%);
+      box-shadow: 0 6px 22px rgba(16, 185, 129, 0.28);
+    }
+
+    .letter-step-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .letter-step-btn.lotus {
+      background: linear-gradient(145deg, #F472B6 0%, rgba(16, 185, 129, 0.85) 100%);
+      color: #07130E;
+      min-height: 64px;
+      font-size: 21px;
+    }
+
+    .letter-story-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 0;
+    }
+
+    #letterStory {
+      width: 100%;
+      min-height: 132px;
+      border-radius: 20px;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      padding: 16px 18px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--text-main);
+      resize: vertical;
+      background: var(--input-bg);
+    }
+
+    .letter-voice-memo {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 18px;
+      border: 1px dashed rgba(52, 211, 153, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+      color: var(--primary-quantum);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .letter-memory-hint {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .letter-memory-hint.show { display: block; }
+
+    .letter-open-btn {
+      width: 100%;
+      min-height: 64px;
+      margin-top: 4px;
+      border: none;
+      border-radius: 22px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #07130E;
+      background: linear-gradient(145deg, #F472B6 0%, var(--primary-quantum) 100%);
+      box-shadow: 0 8px 28px rgba(244, 114, 182, 0.25), 0 0 20px rgba(52, 211, 153, 0.15);
+      cursor: pointer;
+    }
+
+    .letter-open-btn:disabled { opacity: 0.55; cursor: wait; }
+
+    .letter-card-stage {
+      perspective: 1200px;
+      margin: 20px auto 8px;
+      max-width: 360px;
+      min-height: 200px;
+      display: none;
+    }
+
+    .letter-card-stage.show { display: block; }
+
+    .letter-card {
+      width: 100%;
+      min-height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.85s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .letter-card.flipped { transform: rotateY(180deg); }
+
+    .letter-card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .letter-card-back {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.35) 0%, rgba(7, 19, 14, 0.95) 100%);
+      color: var(--text-main);
+      font-family: "Songti SC", serif;
+      font-size: 28px;
+      letter-spacing: 0.2em;
+    }
+
+    .letter-card-front {
+      background: linear-gradient(180deg, rgba(15, 30, 23, 0.9) 0%, rgba(244, 114, 182, 0.12) 100%);
+      transform: rotateY(180deg);
+      color: var(--text-main);
+    }
+
+    .letter-card-front .age-line {
+      font-family: "Songti SC", serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      line-height: 1.45;
+    }
+
+    .letter-card-front .trait-line {
+      font-size: 17px;
+      color: var(--cedar-mid);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .letter-card-front .dayun-tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(184, 107, 120, 0.15);
+      color: var(--lotus-ink);
+      font-size: 15px;
+    }
+
+    .letter-shuffle {
+      animation: letterPulse 0.5s ease-in-out 3;
+    }
+
+    @keyframes letterPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    #letterChatWrap { margin-top: 16px; }
+    #letterChatWrap.show { display: block; }
+    #letterChatWrap[hidden] { display: none !important; }
+
+    .card-preview .seal {
+      display: inline-block;
+      border: 2px solid var(--lotus-ink);
+      color: var(--lotus-ink);
+      padding: 2px 8px;
+      font-family: "Songti SC", serif;
+      letter-spacing: 0.2em;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .card-preview h3 {
+      font-family: "Songti SC", serif;
+      font-size: 22px;
+      letter-spacing: 0.18em;
+      margin: 0 0 18px;
+    }
+
+    .card-preview blockquote {
+      font-family: "Songti SC", serif;
+      font-size: 22px;
+      line-height: 1.9;
+      margin: 0 0 22px;
+      color: var(--cedar);
+    }
+
+    .card-preview footer {
+      font-size: 16px;
+      color: var(--cedar-mid);
+    }
+
+    .result-card {
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(7, 19, 14, 0.5);
+      margin-top: 14px;
+      border-left: 6px solid var(--primary);
+      border: 1px solid var(--glass-border);
+      border-left-width: 6px;
+    }
+
+    .result-card p { margin: 10px 0 0; }
+
+    .result-card.warn { border-left-color: #F87171; background: rgba(248, 113, 113, 0.08); }
+    .result-card.care { border-left-color: #F472B6; background: rgba(244, 114, 182, 0.08); }
+    .result-card.ok { border-left-color: var(--primary-quantum); }
+
+    .guardian-voice-hold {
+      width: 100%;
+      min-height: 72px;
+      margin-top: 16px;
+      padding: 18px 20px;
+      border: none;
+      border-radius: 22px;
+      font-size: 21px;
+      font-weight: 600;
+      color: #07130E;
+      background: linear-gradient(145deg, var(--primary-quantum) 0%, var(--primary) 100%);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.3);
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .guardian-voice-hold:active,
+    .guardian-voice-hold.recording {
+      transform: scale(0.98);
+      box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.18);
+      background: linear-gradient(145deg, #059669 0%, #047857 100%);
+    }
+
+    .guardian-voice-hint {
+      text-align: center;
+      font-size: 16px;
+      color: var(--cedar-mid);
+      margin: 10px 0 0;
+    }
+
+    .guardian-mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    .guardian-text-toggle {
+      background: transparent;
+      border: 1px dashed rgba(52, 211, 153, 0.35);
+      color: var(--text-muted);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    #guardianNarrative {
+      width: 100%;
+      min-height: 120px;
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      padding: 14px 16px;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--text-main);
+      background: var(--input-bg);
+      resize: vertical;
+      display: none;
+    }
+
+    #guardianNarrative.show { display: block; }
+
+    .guardian-transcript-preview {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid var(--glass-border);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .guardian-transcript-preview.show { display: block; }
+
+    .guardian-report {
+      margin-top: 18px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: rgba(7, 19, 14, 0.55);
+    }
+
+    .guardian-report.high { border-color: rgba(248, 113, 113, 0.45); }
+    .guardian-report.medium { border-color: rgba(244, 114, 182, 0.4); }
+    .guardian-report.low { border-color: rgba(52, 211, 153, 0.35); }
+
+    .g-block {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(52, 211, 153, 0.08);
+    }
+
+    .g-block:last-child { border-bottom: none; }
+
+    .g-rating {
+      background: linear-gradient(90deg, rgba(248, 113, 113, 0.08) 0%, rgba(7, 19, 14, 0.2) 100%);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .guardian-report.high .g-rating { color: #FCA5A5; }
+    .guardian-report.medium .g-rating { color: #F9A8D4; }
+    .guardian-report.low .g-rating { color: var(--primary-quantum); }
+
+    .g-block h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      letter-spacing: 0.06em;
+    }
+
+    .g-block ul {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+
+    .g-block li {
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .g-guide li { list-style: none; padding-left: 0; }
+    .g-guide li::before { content: "🌿 "; }
+
+    .g-guide {
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(7, 19, 14, 0.35) 100%);
+    }
+
+    .guardian-alert-btn {
+      width: 100%;
+      margin-top: 14px;
+      min-height: var(--tap);
+      border: none;
+      border-radius: 18px;
+      font-size: 19px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(145deg, #C45C5C 0%, #9E3D3D 100%);
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .guardian-alert-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .guardian-alert-toast {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      font-size: 17px;
+      display: none;
+    }
+
+    .guardian-alert-toast.show { display: block; }
+
+    .bars { margin: 16px 0 8px; }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 48px;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .bar-track {
+      height: 14px;
+      background: rgba(52, 211, 153, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: var(--primary);
+      transition: width 0.8s ease;
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.35);
+    }
+
+    .bar-fill.wood { background: var(--el-wood); }
+    .bar-fill.fire { background: var(--el-fire); }
+    .bar-fill.earth { background: var(--el-earth); }
+    .bar-fill.metal { background: var(--el-metal); }
+    .bar-fill.water { background: var(--el-water); }
+
+    .twin-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .twin-card {
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(7, 19, 14, 0.45);
+      border: 1px solid var(--glass-border);
+    }
+
+    .twin-card .pct {
+      color: var(--lotus-ink);
+      font-weight: 700;
+    }
+
+    .ripple {
+      width: 120px;
+      height: 120px;
+      margin: 8px auto 16px;
+      border-radius: 50%;
+      border: 2px solid var(--lotus-mid);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Songti SC", serif;
+    }
+
+    .ripple::before, .ripple::after {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 1px solid rgba(184, 107, 120, 0.35);
+      animation: ripple 2.8s ease-out infinite;
+    }
+
+    .ripple::after { animation-delay: 1.2s; inset: -18px; }
+
+    @keyframes ripple {
+      0% { transform: scale(0.85); opacity: 0.7; }
+      100% { transform: scale(1.25); opacity: 0; }
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 8, 6, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      padding: 24px;
+    }
+
+    .overlay.show { display: flex; }
+
+    .overlay-card {
+      width: min(420px, 100%);
+      border-radius: 28px;
+      padding: 28px 22px;
+      text-align: center;
+      background: var(--glass-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .pulse {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    footer.colophon {
+      text-align: center;
+      margin-top: 28px;
+      color: var(--cedar-soft);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+    }
+
+    .legal-footer {
+      margin-top: 20px;
+      padding: 20px 16px 22px;
+      border-radius: 22px;
+      text-align: center;
+    }
+
+    .legal-footer .legal-copy {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .legal-footer .legal-tagline {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      opacity: 0.85;
+      letter-spacing: 0.12em;
+    }
+
+    .legal-link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .legal-link-btn {
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--primary-quantum);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 15px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .legal-link-btn:hover {
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.2);
+      border-color: rgba(52, 211, 153, 0.45);
+    }
+
+    .legal-modal-body {
+      max-height: min(52vh, 420px);
+      overflow-y: auto;
+      padding: 4px 2px 12px;
+      margin-bottom: 12px;
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-main);
+    }
+
+    .legal-modal-body section {
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(52, 211, 153, 0.12);
+    }
+
+    .legal-modal-body section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .legal-modal-body h4 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      color: var(--primary-quantum);
+      font-weight: 600;
+    }
+
+    .legal-modal-body p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .legal-modal-body strong {
+      color: var(--text-main);
+    }
+
+    .modal-card.legal-modal {
+      width: min(560px, 100%);
+    }
+
+    .brand-soul {
+      margin-top: 28px;
+      margin-bottom: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(52, 211, 153, 0.12);
+    }
+
+    .brand-soul-lead {
+      text-align: center;
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      font-size: 15px;
+      letter-spacing: 0.28em;
+      color: var(--primary-quantum);
+      margin: 0 0 14px;
+      text-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+    }
+
+    .soul-card {
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+      margin-bottom: 12px;
+    }
+
+    .soul-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .soul-card .soul-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      color: var(--primary-quantum);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.22);
+    }
+
+    .soul-card h3 {
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      font-size: 21px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: var(--text-main);
+      letter-spacing: 0.06em;
+      line-height: 1.45;
+    }
+
+    .soul-card p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .soul-card p + p {
+      margin-top: 10px;
+    }
+
+    .soul-card em {
+      font-style: normal;
+      color: var(--primary-quantum);
+    }
+
+    .soul-card strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .soul-card ul,
+    .soul-card ul.soul-dot-list {
+      margin: 10px 0 0;
+      padding-left: 0;
+      list-style: none;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .soul-card ul li {
+      margin-bottom: 6px;
+      padding-left: 1.1em;
+      text-indent: -1.1em;
+    }
+
+    .soul-card ul li::before {
+      content: "· ";
+      color: var(--primary-quantum);
+      font-weight: 700;
+    }
+
+    .soul-card .soul-quote {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(52, 211, 153, 0.18);
+      font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+      color: var(--primary-quantum);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 480px) {
+      h1.greeting { font-size: 28px; }
+      .app { padding: 18px 12px 48px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora-container .aurora-blob,
+      body::before,
+      header.brand.glass:hover,
+      .panel.glass:hover,
+      .tab:hover {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora-container" aria-hidden="true">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+  </div>
+  <div class="app">
+    <header class="brand glass">
+      <div class="brand-lockup">岁悦长青 · <em>Wisdom Ever AI</em></div>
+      <h1 class="greeting" id="homeGreeting">见字如面</h1>
+      <p class="subtitle">
+        心有山海，岁月长青。<br />
+        屏幕前的你们，也是未来的我们。<br />
+        <span class="mark">跨越时空，见字如面。</span>
+      </p>
+      <input
+        id="userName"
+        class="name-field"
+        type="text"
+        maxlength="20"
+        placeholder="如何称呼您？（例如：林先生、苏女士，或您的专属昵称）"
+      />
+    </header>
+
+    <nav class="tabs six-grid" aria-label="功能板块">
+      <button class="tab active" data-tab="dialogue" type="button">
+        <strong>时空对话</strong>
+        <span>亲友档案 · 原声陪伴</span>
+      </button>
+      <button class="tab" data-tab="memory" type="button">
+        <strong>时光情书</strong>
+        <span>大运抽卡 · 遇见自己</span>
+      </button>
+      <button class="tab" data-tab="style" type="button">
+        <strong>东方美学五行穿搭</strong>
+        <span>看相识体 · 今日五行穿搭指南</span>
+      </button>
+      <button class="tab" data-tab="wellness" type="button">
+        <strong>五行调理与健康</strong>
+        <span>看懂体检单 · 识破保健忽悠 · 科学膳食</span>
+      </button>
+      <button class="tab" data-tab="twin" type="button">
+        <strong>岁月双生</strong>
+        <span>命理同频档案</span>
+      </button>
+      <button class="tab" data-tab="guardian" type="button">
+        <strong>掌上安全</strong>
+        <span>Guardian 2.0 · 深度背调</span>
+      </button>
+    </nav>
+
+    <section id="panel-dialogue" class="panel glass active">
+      <h2 class="panel-title">亲友档案与八字对话</h2>
+      <p class="panel-lead" id="realmLead">把想见的人收进一张卡片。点开，就能听见 TA 的语气与声线。</p>
+      <div class="realm-tabs" role="tablist" aria-label="亲友分类">
+        <button class="realm-tab active" type="button" data-realm="living" id="tabLiving">
+          🌱 我的亲朋好友
+          <small>现实陪伴，灯还亮着</small>
+        </button>
+        <button class="realm-tab star" type="button" data-realm="star" id="tabStar">
+          ✨ 变成星星的他们
+          <small>怀念追思，星光很静</small>
+        </button>
+      </div>
+      <div class="profile-stage" id="profileStage">
+        <div class="sparkles" id="sparkles" hidden></div>
+        <div class="profile-grid" id="profileGrid"></div>
+      </div>
+
+      <div class="bazi-box">
+        <label class="quiet">这位亲友的八字性格</label>
+        <div id="baziTags"></div>
+      </div>
+
+      <div class="voice-clone">
+        <div class="row">
+          <div>
+            <strong>🎤 复刻 TA 的声音</strong>
+            <div class="hint" id="voiceStatus">尚未采集。轻轻录一段，我们为您留下 TA 的声纹。</div>
+          </div>
+          <div class="wave" id="cloneWave" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="cloneVoice" type="button" style="width:100%;margin-top:12px;">开始复刻声纹</button>
+      </div>
+
+      <div class="chat" id="chatBox" aria-live="polite"></div>
+
+      <div class="composer">
+        <input id="userInput" class="text-input" type="text" placeholder="想对 TA 说点什么……" />
+        <button class="btn btn-primary" id="sendBtn" type="button">发送</button>
+      </div>
+      <button class="btn btn-ghost voice-input-btn" id="voiceInputBtn" type="button">🎤 按住说话 / 语音输入</button>
+    </section>
+
+    <section id="panel-memory" class="panel glass" hidden>
+      <h2 class="panel-title">时光情书</h2>
+      <p class="panel-lead">五行有大运，人生有来路。在不同的岁月中，遇见那个依然热爱生活的自己。</p>
+
+      <nav class="letter-flow-steps" id="letterFlowGuide" aria-label="时光情书三步引导">
+        <p class="flow-line" id="letterFlow1"><strong>第 1 步</strong> · 输入生辰八字，测算当前大运与命盘底座</p>
+        <p class="flow-line" id="letterFlow2"><strong>第 2 步</strong> · 锁定并遇见不同时期的自己（如 20 岁、30 岁…）</p>
+        <p class="flow-line" id="letterFlow3"><strong>第 3 步</strong> · 写一句人生自传/记忆碎片，开启跨时空走心对话</p>
+      </nav>
+
+      <div class="letter-step-panel show" id="letterStep1Panel">
+        <p class="letter-step-title">① 生辰八字 · 命盘底座</p>
+        <input id="letterBirth" class="text-input" type="text" placeholder="如 19910412 或 1991年4月12日" autocomplete="off" style="text-align:center;font-size:20px;" />
+        <button type="button" class="letter-step-btn" id="letterBaziBtn">🔮 推演命盘与当前大运</button>
+        <div class="letter-bazi-foundation" id="letterBaziFoundation"></div>
+      </div>
+
+      <div class="letter-step-panel" id="letterStep2Panel">
+        <p class="letter-step-title">② 遇见某一段岁月里的自己</p>
+        <button type="button" class="letter-step-btn lotus" id="letterDrawBtn">🎲 抽取并遇见「自己」</button>
+      </div>
+
+      <div class="letter-step-panel" id="letterStep3Panel">
+        <p class="letter-step-title">③ 人生自传 · 走心对话</p>
+        <div class="letter-story-box">
+          <textarea id="letterStory" placeholder="简单讲讲您的人生经历或当时的一段故事（例如：90年代下岗摆过摊，最感谢我妈…不必写长地名，说人话就行）"></textarea>
+          <button type="button" class="letter-voice-memo" id="letterVoiceBtn">🎙️ 语音速记（说完自动写入）</button>
+          <p class="letter-memory-hint" id="letterMemoryHint" aria-live="polite"></p>
+          <button type="button" class="letter-open-btn" id="letterStartChatBtn">✨ 开启无代沟走心对话</button>
+        </div>
+      </div>
+
+      <div class="letter-card-stage" id="letterCardStage" aria-live="polite">
+        <div class="letter-card" id="letterCard">
+          <div class="letter-card-face letter-card-back">✉️<br /><small style="font-size:14px;letter-spacing:0.1em;margin-top:8px;display:block;">大运盲盒</small></div>
+          <div class="letter-card-face letter-card-front">
+            <p class="age-line" id="letterAgeLine"></p>
+            <p class="trait-line" id="letterTraitLine"></p>
+            <span class="dayun-tag" id="letterDayunTag"></span>
+          </div>
+        </div>
+      </div>
+      <div id="letterChatWrap" hidden>
+        <div class="chat" id="letterChat" aria-live="polite"></div>
+        <div class="composer">
+          <input id="letterInput" class="text-input" type="text" placeholder="想对那个年纪的自己说点什么……" />
+          <button class="btn btn-primary" id="letterSend" type="button">寄出</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-style" class="panel glass" hidden>
+      <h2 class="panel-title">东方美学五行穿搭</h2>
+      <p class="panel-lead">以生辰定命盘底色，以影像读脸型与身形气质，合今日五行，给出可穿在身上的东方美学。</p>
+      <label class="quiet" for="styleBirth">生辰八字 / 出生日期</label>
+      <input id="styleBirth" class="text-input" type="text" placeholder="如 19910412 或 1991年4月12日" style="width:100%;text-align:center;margin-bottom:8px;" autocomplete="off" />
+      <p class="hint">上传照片仅在本机预览，用于模拟「看相识体」（演示版不上传云端）。</p>
+      <div class="upload-grid">
+        <label class="upload-tile" id="styleFaceFrontTile">
+          <input id="styleFaceFront" type="file" accept="image/*" capture="user" />
+          <strong>📷 面部正脸</strong>
+          <small id="styleFaceFrontHint">看清眉骨与脸型</small>
+        </label>
+        <label class="upload-tile" id="styleFaceSideTile">
+          <input id="styleFaceSide" type="file" accept="image/*" capture="user" />
+          <strong>📷 面部侧脸</strong>
+          <small id="styleFaceSideHint">可选，辅助气质判断</small>
+        </label>
+        <label class="upload-tile" id="styleBodyTile" style="grid-column:1/-1;">
+          <input id="styleBody" type="file" accept="image/*" capture="environment" />
+          <strong>🧍 全身照</strong>
+          <small id="styleBodyHint">站姿自然，便于识体型与比例</small>
+        </label>
+      </div>
+      <button type="button" class="btn btn-primary" id="styleAnalyze" style="width:100%;margin-top:8px;">🎋 生成今日五行穿搭指南</button>
+      <div id="styleResult"></div>
+    </section>
+
+    <section id="panel-wellness" class="panel glass" hidden>
+      <h2 class="panel-title">五行调理与健康</h2>
+      <p class="panel-lead">看懂体检单、识破保健忽悠、用五行调理与科学膳食守护自身健康。</p>
+      <label class="quiet" for="healthBirth">生辰八字 / 出生日期（联动当前流年、流月时空磁场）</label>
+      <input id="healthBirth" class="text-input" type="text" placeholder="如 19550615 或 1955年6月15日" style="width:100%;text-align:center;margin-bottom:10px;" autocomplete="off" />
+      <div class="upload-grid">
+        <label class="upload-tile" id="healthReportTile" style="grid-column:1/-1;">
+          <input id="healthReport" type="file" accept="image/*,.pdf" />
+          <strong>📄 上传体检报告 / 病历照片</strong>
+          <small id="healthReportHint">可多张，演示版仅读取文件名辅助解析</small>
+        </label>
+      </div>
+      <label class="quiet" for="healthText">或文字 / 语音描述身体状况</label>
+      <textarea id="healthText" class="text-input" placeholder="例如：血压偏高、睡眠不好、眼干模糊、偶尔心慌、腿有时发软；或粘贴报告里的关键指标……" style="width:100%;min-height:100px;border-radius:18px;padding:14px;font-size:17px;"></textarea>
+      <button type="button" class="letter-voice-memo" id="healthVoiceBtn" style="margin-top:10px;">🎙️ 语音描述身体情况</button>
+      <button type="button" class="btn btn-primary" id="healthAnalyze" style="width:100%;margin-top:12px;">🌿 生成四维健康闭环报告</button>
+      <div id="wellnessResult"></div>
+    </section>
+
+    <section id="panel-twin" class="panel glass" hidden>
+      <h2 class="panel-title">岁月双生</h2>
+      <p class="panel-lead">写下生辰。我们画出命理同频图，并为您寻几位跨年龄的同频灵魂。</p>
+      <div class="row">
+        <input id="twinDate" type="date" value="1952-08-15" aria-label="岁月双生生辰" />
+        <button class="btn btn-primary" id="matchTwin" type="button">寻访同频灵魂</button>
+      </div>
+      <div id="twinResult"></div>
+    </section>
+
+    <section id="panel-guardian" class="panel glass" hidden>
+      <h2 class="panel-title">掌上安全 Guardian 2.0</h2>
+      <p class="panel-lead">按住说话，把讲座、推销、转账要求原原本本讲出来。我们会做传销/会销多维背调，并帮您温柔地跟家人沟通。</p>
+      <button type="button" class="guardian-voice-hold" id="guardianVoiceHold">🎙️ 按住说话 / 录音叙述事情经过</button>
+      <p class="guardian-voice-hint" id="guardianVoiceHint">按住按钮开始说，松开即结束。也可改用文字补充。</p>
+      <div class="guardian-mode-row">
+        <button type="button" class="guardian-text-toggle" id="guardianTextToggle">✏️ 改用文字叙述</button>
+        <button class="btn btn-primary" id="guardianAnalyze" type="button">🔍 开始深度背调分析</button>
+      </div>
+      <textarea id="guardianNarrative" placeholder="请把经过写在这里：例如被带去听健康讲座、交高额会员费、产品号称正规却宣传包治百病、还要拉朋友入会……" aria-label="Guardian 叙述内容"></textarea>
+      <div class="guardian-transcript-preview" id="guardianTranscriptPreview" aria-live="polite"></div>
+      <div id="guardianResult"></div>
+      <div class="guardian-alert-toast" id="guardianAlertToast"></div>
+    </section>
+
+    <section class="brand-soul" aria-label="品牌精神与主理人手记">
+      <p class="brand-soul-lead">品牌精神 · 主理人手记</p>
+
+      <article class="soul-card glass">
+        <span class="soul-tag">主理人寄语</span>
+        <h3>📖 《不被定义的年龄》：打破被内化的岁月枷锁</h3>
+        <p>我们从小生活在一个充满“年龄偏见”的社会里。媒体与日常话语无时无刻不在暗示：“老了就是衰退、没用、跟不上时代”。这些消极刻板印象会悄无声息地植入潜意识，变成自我的心理暗示。</p>
+        <p>耶鲁大学数十年的追踪研究揭示了一个惊人事实：当一个人把消极年龄观“内化”为自我认知时，身体会发生真实的生理退化；而持有【积极年龄观】（认为年长代表智慧、从容与新可能）的人：</p>
+        <ul class="soul-dot-list">
+          <li>平均寿命延长了 7.5 年（超越控烟与运动带来的影响）；</li>
+          <li>认知衰退与脑健康风险显著降低，身体恢复力大幅提升。</li>
+        </ul>
+        <p>衰老不是一场不可逆的下行悲剧，而是积淀智慧的璀璨旅程。打破年龄密码，第一步就是撕掉社会赋予的标签。岁月的痕迹不是衰败的证明，而是生命丰盈的勋章。</p>
+        <p class="soul-quote">“年龄只是日历上的刻度，而你的生命，永远可以不被定义。”</p>
+      </article>
+
+      <article class="soul-card glass">
+        <span class="soul-tag">文化与脑健康</span>
+        <h3>《阿尔茨海默病的前世今生》</h3>
+        <p>认知衰退从来不只是生理曲线的下滑。当社会把「老」与「无用、糊涂、拖累」绑在一起，消极年龄观念会在日复一日的内化中，成为压在记忆与情绪上的额外重量。</p>
+        <p>脑健康的良药，除了科学医疗与生活方式，更是<strong>精神被看见、被倾听、被尊重</strong>——让人知道：你的故事仍然重要，你的判断仍然值得被认真听见。</p>
+      </article>
+
+      <article class="soul-card glass">
+        <span class="soul-tag">品牌宗旨</span>
+        <h3>《我的女儿回头看了我一眼》</h3>
+        <p>那一眼，是代际之间最深情的回眸：不是催促，不是评判，而是「我还在，我想懂您」。</p>
+        <p>岁悦长青的初心，定格在这一眼——<em>让父母不再孤单面对岁月</em>，让子女随时能听见父母年轻时的故事、未说出口的炽热与骄傲，跨越时空，见字如面。</p>
+      </article>
+    </section>
+
+    <footer class="colophon legal-footer glass">
+      <p class="legal-tagline">岁悦长青 · 跨越时空，见字如面</p>
+      <p class="legal-copy">© 2026 岁悦长青 Wisdom Ever AI. All rights reserved.</p>
+      <div class="legal-link-row">
+        <button type="button" class="legal-link-btn" id="openLegalDisclaimer">⚖️ 免责声明与健康提示</button>
+        <button type="button" class="legal-link-btn" id="openLegalPrivacy">🔒 隐私保护协议</button>
+      </div>
+    </footer>
+  </div>
+
+  <div class="overlay" id="voiceOverlay">
+    <div class="overlay-card glass">
+      <div class="pulse">🎤</div>
+      <p id="voiceOverlayText" style="font-size:22px;margin:0 0 8px;">正在倾听您的声音……</p>
+      <p class="hint">字句会像落叶一样，轻轻变成文字。</p>
+    </div>
+  </div>
+
+  <div class="overlay" id="wellnessShareModal">
+    <div class="modal-card glass" role="dialog" aria-labelledby="wellnessShareTitle">
+      <h3 id="wellnessShareTitle">📤 健康 · 运动 · 营养清单</h3>
+      <p class="hint" style="margin-bottom:12px;">已为您生成清晰的健康闭环清单（时空预警、体检解读、运动起居、营养采购），可一键发送给子女代购或核对，按图索骥在淘宝 / 正规药房安全购买，拒绝盲目高价保健品。</p>
+      <textarea id="wellnessShareText" class="wellness-share-text" readonly aria-label="采购清单全文"></textarea>
+      <p id="wellnessShareCopyHint" class="hint" style="margin:10px 0 0;" hidden></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="wellnessShareClose" type="button">关闭</button>
+        <button class="btn btn-primary" id="wellnessShareCopy" type="button">复制清单，发给子女</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="legalDisclaimerModal">
+    <div class="modal-card glass legal-modal" role="dialog" aria-labelledby="legalDisclaimerTitle">
+      <h3 id="legalDisclaimerTitle">⚖️ 免责声明与健康提示</h3>
+      <p class="hint" style="margin-bottom:12px;">请在使用健康相关功能前仔细阅读以下条款。</p>
+      <div class="legal-modal-body" id="legalDisclaimerBody">
+        <section>
+          <h4>① 非医疗行为声明</h4>
+          <p>本平台提供的体检单解读、五行调理建议及营养补充方案（包括但不限于鱼油、辅酶 Q10、叶黄素、维生素 D3+K2 等）均基于大模型科普与膳食养生指导，<strong>不属于医疗诊断、治疗处方或执业医师行为</strong>。任何指标异常、疾病治疗与用药调整，请遵循正规医院医嘱，勿因本服务延误就医。</p>
+        </section>
+        <section>
+          <h4>② 传统文化与决策声明</h4>
+          <p>五行八字、流年流月、大运推演及穿搭美学建议属于传统文化体验与生活审美指导，<strong>不作为医疗、法律或财务投资之依据</strong>。重大人生决策请咨询具备资质的专业人士。</p>
+        </section>
+        <section>
+          <h4>③ 防坑安全与代购声明</h4>
+          <p>营养品采购清单及「一键转发子女代购 / 核对」功能仅供家庭沟通与正规渠道选购参考，<strong>不构成购买建议或质量担保</strong>。交易价格、真伪与合规性请自行核验，警惕传销、会销与虚假宣传。</p>
+        </section>
+        <section>
+          <h4>④ 数据隐私保护（摘要）</h4>
+          <p>您上传的体检报告、面相与全身照片、生辰八字及语音转写内容，<strong>仅用于在本设备会话中实时生成个性化结果</strong>（演示版以本地逻辑为主）。我们倡导最小必要原则，请勿在公共网络环境上传含完整证件号的敏感材料。完整规则见《隐私保护协议》。</p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="legalDisclaimerAck" type="button" style="grid-column:1/-1;">我已阅读并知悉</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="legalPrivacyModal">
+    <div class="modal-card glass legal-modal" role="dialog" aria-labelledby="legalPrivacyTitle">
+      <h3 id="legalPrivacyTitle">🔒 隐私保护协议</h3>
+      <p class="hint" style="margin-bottom:12px;">岁悦长青 Wisdom Ever AI · 个人信息与数据安全说明</p>
+      <div class="legal-modal-body">
+        <section>
+          <h4>1. 我们收集哪些信息</h4>
+          <p>在您主动填写或上传时，可能包括：昵称、亲友档案、生辰八字、对话与自传文字、语音转写内容、体检 / 病历图片文件名与描述、穿搭相关照片（演示版主要在本机浏览器内处理）。</p>
+        </section>
+        <section>
+          <h4>2. 信息如何使用</h4>
+          <p>仅用于生成您所请求的个性化体验（对话、健康科普解读、穿搭与命理文化展示、安全风险提示等），<strong>不用于未告知的其他商业目的</strong>。</p>
+        </section>
+        <section>
+          <h4>3. 存储与安全</h4>
+          <p>部分偏好（如昵称、档案、生辰缓存）可能保存在您浏览器 localStorage 中，由您自行清除。请勿在共用设备上保存敏感健康信息。正式联网版本应启用加密传输与访问控制；当前 MVP 请以「演示 / 本地优先」理解风险边界。</p>
+        </section>
+        <section>
+          <h4>4. 您的权利</h4>
+          <p>您可随时停止上传、清除浏览器站点数据以删除本地缓存，并通过页脚链接再次查阅本协议与免责声明。</p>
+        </section>
+        <section>
+          <h4>5. 联系我们</h4>
+          <p>对隐私或合规有疑问，请通过产品内反馈渠道或您获取本应用的发布方联系。© 2026 岁悦长青 Wisdom Ever AI.</p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="legalPrivacyAck" type="button" style="grid-column:1/-1;">我已阅读并知悉</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="guardianBindModal">
+    <div class="modal-card glass" role="dialog" aria-labelledby="guardianBindTitle">
+      <h3 id="guardianBindTitle">绑定守护者手机号 / 微信</h3>
+      <p class="hint" style="margin-bottom:16px;">留下子女联系方式，遇到高危推销或转账要求时，可一键把防骗提醒发到 TA 手机上。</p>
+      <div class="field">
+        <label for="guardianKinName">守护者称呼（如：姑娘、儿子）</label>
+        <input id="guardianKinName" class="text-input" type="text" placeholder="如：姑娘" autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="guardianKinPhone">子女手机号</label>
+        <input id="guardianKinPhone" class="text-input" type="tel" placeholder="11 位手机号" autocomplete="tel" />
+      </div>
+      <div class="field">
+        <label for="guardianKinWechat">微信（选填）</label>
+        <input id="guardianKinWechat" class="text-input" type="text" placeholder="微信号或备注名" autocomplete="off" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="guardianBindCancel" type="button">先取消</button>
+        <button class="btn btn-primary" id="guardianBindSave" type="button">保存并发送提醒</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="profileModal">
+    <div class="modal-card glass" role="dialog" aria-labelledby="profileModalTitle">
+      <h3 id="profileModalTitle">亲友档案录入</h3>
+      <p class="hint" style="margin-bottom:16px;">把称呼、生辰与声音轻轻放下。星空或灯下，都可以再相见。</p>
+      <div class="field">
+        <label for="pfName">称呼 / 姓名</label>
+        <input id="pfName" class="text-input" type="text" maxlength="20" placeholder="请输入亲友称呼或姓名" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>归属分类</label>
+        <div class="realm-choice">
+          <label><input type="radio" name="pfRealm" value="living" /> 🌱 我的亲朋好友</label>
+          <label><input type="radio" name="pfRealm" value="star" /> ✨ 变成星星的他们</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pfRelation">关系类型</label>
+        <select id="pfRelation">
+          <option value="">请选择关系</option>
+          <option value="granddaughter">孙女</option>
+          <option value="grandson">孙子</option>
+          <option value="daughter">女儿</option>
+          <option value="son">儿子</option>
+          <option value="partner">老伴</option>
+          <option value="parent">父母</option>
+          <option value="friend">闺蜜老友</option>
+          <option value="custom">自定义</option>
+        </select>
+        <input id="pfRelationCustom" class="text-input" type="text" placeholder="请写下这份关系" style="margin-top:8px;display:none;" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="pfBirth">生辰八字 / 出生日期</label>
+        <input id="pfBirth" class="text-input" type="text" placeholder="如 19910412、1991-04-12 或 农历正月初五" autocomplete="off" />
+        <div id="pfBaziPreview"></div>
+      </div>
+      <div class="field">
+        <label>音频采样</label>
+        <input id="pfAudio" type="file" accept="audio/*" hidden />
+        <button class="btn btn-lotus" id="pfVoiceBtn" type="button" style="width:100%;">🎤 录入 / 上传音色</button>
+        <p class="hint" id="pfVoiceHint">尚未采样。点一下，我们模拟提取 TA 的声纹特征。</p>
+      </div>
+      <div class="field">
+        <label for="pfTraits">语音与性格风格特征描述</label>
+        <textarea id="pfTraits" placeholder="可描述说话习惯、性格与叮嘱"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="pfCancel" type="button">先放下</button>
+        <button class="btn btn-primary" id="pfSave" type="button">保存档案</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const GAN = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+      const ZHI = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+      const GAN_EL = ["木", "木", "火", "火", "土", "土", "金", "金", "水", "水"];
+      const ZHI_EL = ["水", "土", "木", "木", "土", "火", "火", "土", "金", "金", "土", "水"];
+      const GAN_TRAIT = {
+        甲: "甲木日主·正直进取",
+        乙: "乙木日主·娇柔贴心",
+        丙: "丙火日主·热情开朗",
+        丁: "丁火日主·细腻温柔",
+        戊: "戊土日主·稳重包容",
+        己: "己土日主·温厚务实",
+        庚: "庚金日主·直爽重情",
+        辛: "辛金日主·精致敏锐",
+        壬: "壬水日主·智慧通达",
+        癸: "癸水日主·柔软灵动"
+      };
+      const EL_TONE = {
+        木: { adverb: "轻轻", warmth: "软", extra: "像春芽一样把话说明白" },
+        火: { adverb: "亮亮", warmth: "热", extra: "把心里的光也递给您" },
+        土: { adverb: "稳稳", warmth: "厚", extra: "不急，一句一句落到实处" },
+        金: { adverb: "爽爽", warmth: "直", extra: "心里有情，口里也不绕弯" },
+        水: { adverb: "慢慢", warmth: "润", extra: "话像溪水，绕到您心里" }
+      };
+
+      const REL_LABEL = {
+        granddaughter: "孙女", grandson: "孙子", daughter: "女儿", son: "儿子",
+        partner: "老伴", parent: "父母", friend: "闺蜜老友", custom: "亲人"
+      };
+      const REL_EMOJI = {
+        granddaughter: "🎀", grandson: "🌿", daughter: "🌷", son: "🍃",
+        partner: "🌙", parent: "🌸", friend: "🍵", custom: "🤍"
+      };
+
+      function voiceFor(relation, realm) {
+        const map = {
+          granddaughter: { rate: 1.08, pitch: 1.25 },
+          grandson: { rate: 1.06, pitch: 1.18 },
+          daughter: { rate: 1.0, pitch: 1.1 },
+          son: { rate: 0.98, pitch: 0.95 },
+          partner: { rate: 0.92, pitch: 0.9 },
+          parent: { rate: 0.9, pitch: 0.88 },
+          friend: { rate: 1.0, pitch: 1.02 },
+          custom: { rate: 0.98, pitch: 1.0 }
+        };
+        const v = Object.assign({}, map[relation] || map.custom);
+        if (realm === "star") { v.rate *= 0.92; v.pitch *= 0.96; }
+        return v;
+      }
+
+      function makeProfile(partial) {
+        const p = Object.assign({
+          id: "p-" + Date.now() + "-" + Math.floor(Math.random() * 999),
+          name: "",
+          relation: "custom",
+          relationLabel: "亲人",
+          realm: "living",
+          birthText: "",
+          bazi: null,
+          traits: "",
+          voiceReady: false
+        }, partial);
+        p.voice = voiceFor(p.relation, p.realm);
+        return p;
+      }
+
+      const PRESET_IDS = { xiaoya: 1, partner: 1, "mother-star": 1 };
+      const PRESET_NAMES = { "孙女·小芽": 1, "远方的老伴": 1, "母亲·桂芳": 1, "女儿小王": 1 };
+
+      const state = {
+        tab: "dialogue",
+        realm: "living",
+        roleId: "",
+        profiles: [],
+        name: "",
+        lastAiText: "",
+        letterSelf: null,
+        memoryBase: null,
+        letterStep: 1,
+        letterBirthIso: "",
+        letterFoundationBazi: null,
+        letterCurrentDayun: "",
+        pendingVoice: false,
+        lastGuardianReport: null,
+        lastGuardianNarrative: "",
+        pendingGuardianAlert: false,
+        wellnessSportPlan: null,
+        wellnessCheckInRecord: null
+      };
+
+      const LETTER_AGES = [20, 30, 40, 50, 70];
+
+      const LETTER_AGE_TRAITS = {
+        20: "意气风发 · 满怀热烈与勇敢",
+        30: "脚踏实地 · 敢闯敢担当",
+        40: "稳中求进 · 责任与柔软并存",
+        50: "阅历渐丰 · 温厚而有力量",
+        70: "岁月沉静 · 智深如海 · 通透温和"
+      };
+
+      function $(id) { return document.getElementById(id); }
+
+      /** 自传智能解析 → 时空记忆底座（Memory Base） */
+      function parseLifeStory(raw) {
+        const text = (raw || "").trim();
+        const base = {
+          raw: text,
+          birthYear: null,
+          eras: [],
+          places: [],
+          events: [],
+          people: [],
+          emotions: [],
+          summary: ""
+        };
+        if (!text) return base;
+
+        const yearBorn = text.match(/(?:生于|出生在|出生在|(\d{4})年?\s*生)/);
+        const y4 = text.match(/(19\d{2}|20\d{2})/g);
+        if (y4 && y4.length) {
+          const nums = y4.map(Number).filter(function (n) { return n >= 1930 && n <= 2010; });
+          if (nums.length) base.birthYear = nums[0];
+        }
+
+        const eraPatterns = [
+          ["七十年代", "七十年代"], ["八十年代", "八十年代"], ["九十年代", "九十年代"],
+          ["90年代", "九十年代"], ["80年代", "八十年代"], ["70年代", "七十年代"],
+          ["下岗潮", "九十年代"], ["改革", "改革年代"], ["恢复高考", "恢复高考"], ["下海", "下海经商"]
+        ];
+        eraPatterns.forEach(function (pair) {
+          if (text.indexOf(pair[0]) !== -1 && base.eras.indexOf(pair[1]) === -1) base.eras.push(pair[1]);
+        });
+
+        const placeRe = /([\u4e00-\u9fa5]{2,10}(?:省|市|区|县|厂(?:区)?|矿|场|街道|胡同|巷|村|里))/g;
+        let pm;
+        while ((pm = placeRe.exec(text)) !== null) {
+          const p = pm[1];
+          if (base.places.indexOf(p) === -1) base.places.push(p);
+        }
+        if (/沈阳/.test(text) && base.places.indexOf("沈阳") === -1) base.places.unshift("沈阳");
+        if (/东北/.test(text) && base.places.indexOf("东北") === -1) base.places.push("东北");
+
+        const eventDict = [
+          "下岗", "摆摊", "摆过摊", "国企", "工厂", "学徒", "参军", "高考", "复员", "下海",
+          "做生意", "跑运输", "种地", "教书", "进城", "务工", "拆迁", "分房", "买断工龄"
+        ];
+        eventDict.forEach(function (k) {
+          if (text.indexOf(k) !== -1) {
+            const label = k === "摆过摊" ? "摆摊" : k;
+            if (base.events.indexOf(label) === -1) base.events.push(label);
+          }
+        });
+
+        const peopleDict = [
+          ["我妈", "我妈"], ["母亲", "母亲"], ["爸爸", "父亲"], ["我爸", "父亲"], ["父亲", "父亲"],
+          ["师傅", "师傅"], ["老伴", "老伴"], ["爱人", "爱人"], ["爷爷", "爷爷"], ["奶奶", "奶奶"],
+          ["闺女", "闺女"], ["儿子", "儿子"], ["工友", "工友"]
+        ];
+        peopleDict.forEach(function (pair) {
+          if (text.indexOf(pair[0]) !== -1 && base.people.indexOf(pair[1]) === -1) base.people.push(pair[1]);
+        });
+
+        const emoDict = ["感谢", "感激", "委屈", "后悔", "骄傲", "想家", "害怕", "踏实", "不容易", "熬过来"];
+        emoDict.forEach(function (k) {
+          if (text.indexOf(k) !== -1 && base.emotions.indexOf(k) === -1) base.emotions.push(k);
+        });
+
+        const parts = [];
+        if (base.birthYear) parts.push(base.birthYear + "年");
+        if (base.eras.length) parts.push(base.eras.slice(0, 2).join("、"));
+        if (base.places.length) parts.push(base.places.slice(0, 2).join("、"));
+        if (base.events.length) parts.push(base.events.slice(0, 2).join("、"));
+        if (base.people.length) parts.push("记挂" + base.people.slice(0, 2).join("、"));
+        base.summary = parts.length ? parts.join(" · ") : text.slice(0, 36) + (text.length > 36 ? "…" : "");
+
+        try {
+          localStorage.setItem("weai-memory-base", JSON.stringify(base));
+        } catch (err) {}
+        return base;
+      }
+
+      function loadMemoryBase() {
+        try {
+          const raw = localStorage.getItem("weai-memory-base");
+          if (raw) return JSON.parse(raw);
+        } catch (err) {}
+        return null;
+      }
+
+      function showMemoryBaseHint(base) {
+        const el = $("letterMemoryHint");
+        if (!base || !base.raw) {
+          el.classList.remove("show");
+          el.textContent = "";
+          return;
+        }
+        el.textContent = "📎 已为您锚定记忆底座：" + base.summary;
+        el.classList.add("show");
+      }
+
+      function pickLetterAge(base) {
+        const t = base.raw || "";
+        if (/九十年代|90年代|下岗|摆摊/.test(t)) {
+          return pick([30, 40, 50]);
+        }
+        if (/七十年代|70年代|知青|参军/.test(t)) {
+          return pick([20, 30]);
+        }
+        if (/退休|带孙子|七十|80岁|八十/.test(t)) {
+          return 70;
+        }
+        return LETTER_AGES[Math.floor(Math.random() * LETTER_AGES.length)];
+      }
+
+      /** 记忆底座 → 口语化暗线（禁止长地名、户口本式复述） */
+      function letterFlavor(base) {
+        const raw = base && base.raw ? base.raw : "";
+        let homeHint = "老家那儿";
+        if (/厂|矿|车间|厂区/.test(raw)) homeHint = "厂子里";
+        else if (/村|乡|屯|庄|大队/.test(raw)) homeHint = "乡下";
+        else if (/胡同|大院|院儿/.test(raw)) homeHint = "院里";
+        else if (base && base.places && base.places.length) {
+          const p = base.places[0];
+          if (p.length <= 3 && !/自治区|省|旗|科左|内蒙古/.test(p)) homeHint = p;
+        }
+
+        let hustleHint = "那几年";
+        if (/下岗/.test(raw)) hustleHint = pick(["下岗那阵儿", "没班上的日子", "心里发慌那几年"]);
+        else if (/摆摊|摆过摊/.test(raw)) hustleHint = pick(["摆摊那会儿", "支个小摊的日子", "风吹日晒那阵"]);
+        else if (base && base.events && base.events.length) {
+          const e = base.events[0];
+          if (e === "国企" || e === "工厂") hustleHint = "在厂里拧螺丝那阵";
+          else if (e === "高考") hustleHint = "赶高考那阵";
+          else hustleHint = e + "那会儿";
+        }
+
+        let kinHint = "咱妈";
+        if (/爸|父亲/.test(raw)) kinHint = pick(["咱爸", "老爷子"]);
+        if (/老伴|爱人/.test(raw)) kinHint = "老伴";
+        if (/闺女|女儿/.test(raw)) kinHint = "闺女";
+        if (/儿子/.test(raw)) kinHint = "小子";
+
+        const eraHint = base && base.eras && base.eras.length
+          ? base.eras[0].replace("九十年代", "九零年代")
+          : "那年头";
+
+        return { homeHint: homeHint, hustleHint: hustleHint, kinHint: kinHint, eraHint: eraHint };
+      }
+
+      function buildLetterGreeting(age, base) {
+        const f = letterFlavor(base);
+        if (age === 20) {
+          return pick([
+            "哟！二十的我来报到——腿快跑断了还在往前冲呢。你现在咋样？没把自己饿瘦吧？",
+            "嘿，二十档的我！" + f.eraHint + "那股热乎劲儿还在身上。快说，后来咱" + f.homeHint + "混出头了没？"
+          ]);
+        }
+        if (age === 30) {
+          return pick([
+            "三十的我来啦——正忙得人仰马翻呢，" + f.hustleHint + "那口气还没喘匀。你先报个喜：日子腾起来了没？",
+            "得，三十岁的我上线！累是真累，火也是真火。咱" + f.kinHint + "还好吧？你现在轻松点了没？"
+          ]);
+        }
+        if (age === 40) {
+          return pick([
+            "四十的我——学会跟生活讨价还价了。别端架子啊，咱俩谁跟谁，最近心里堵不堵？",
+            "哎，四十档。那会儿" + f.hustleHint + "熬过来，才知道什么叫硬扛。你现在还逞强不？"
+          ]);
+        }
+        if (age === 50) {
+          return pick([
+            "五十的我，嗓门低了点，心眼实了。坐下来，跟镜子里的自己唠两句——你亏待自己没？",
+            "哟，都到五十啦（对我说的）！" + f.kinHint + "那辈儿的念叨，你现在还听不？"
+          ]);
+        }
+        return pick([
+          "七十的我……别愁眉苦脸的，先坐稳。想喝口啥自己倒，慢慢唠。",
+          "诶，老伙计（就是咱自己）。这辈子风也见过雨也见过，你想说啥都行，我不嫌絮叨。"
+        ]);
+      }
+
+      function letterVoiceMemo() {
+        const area = $("letterStory");
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) {
+          area.focus();
+          area.placeholder = "此浏览器暂不支持语音，请直接打字讲述……";
+          return;
+        }
+        const btn = $("letterVoiceBtn");
+        btn.disabled = true;
+        btn.textContent = "🎙️ 正在听您讲……";
+        let done = false;
+        const finish = function (words) {
+          if (done) return;
+          done = true;
+          btn.disabled = false;
+          btn.textContent = "🎙️ 语音速记（说完自动写入）";
+          if (words) {
+            const cur = (area.value || "").trim();
+            area.value = cur ? cur + " " + words : words;
+            const base = parseLifeStory(area.value);
+            state.memoryBase = base;
+            showMemoryBaseHint(base);
+          }
+        };
+        setTimeout(function () { finish(""); }, 8000);
+        try {
+          const rec = new SpeechRec();
+          rec.lang = "zh-CN";
+          rec.onresult = function (e) {
+            finish(e.results[0][0].transcript);
+          };
+          rec.onerror = function () { finish(""); };
+          rec.start();
+        } catch (err) {
+          finish("");
+        }
+      }
+
+      function currentProfile() {
+        if (!state.roleId) return null;
+        return state.profiles.filter(function (p) { return p.id === state.roleId; })[0] || null;
+      }
+
+      function elderGender() {
+        const n = state.name || "";
+        if (/女士|奶奶|阿姨|婆婆|老妈|妈妈|母亲|妈$/.test(n)) return "female";
+        if (/先生|爷爷|外公|叔叔|大爷|伯伯|老爸|爸爸|父亲|爸$/.test(n)) return "male";
+        return "male";
+      }
+
+      function elderShortName() {
+        const n = (state.name || "").trim();
+        if (!n) return "老";
+        return n.replace(/(先生|女士|老师|阿姨|叔叔|大爷|伯伯)$/g, "").slice(0, 1) || "老";
+      }
+
+      /** 对话中对长辈的称呼（禁止生硬使用「X先生」） */
+      function kinAddress() {
+        const p = currentProfile();
+        const g = elderGender();
+        const rel = (p && p.relation) || "custom";
+        const relLabel = (p && p.relationLabel) || "";
+        const short = elderShortName();
+
+        if (rel === "daughter" || /女儿|姑娘/.test(relLabel)) {
+          const primary = g === "female" ? "妈" : "爸";
+          const warm = g === "female" ? "老妈" : "老爸";
+          return { primary: primary, warm: warm, selfRef: null };
+        }
+        if (rel === "son" || /儿子/.test(relLabel)) {
+          return { primary: g === "female" ? "妈" : "爸", warm: g === "female" ? "老妈" : "老爸", selfRef: null };
+        }
+        if (rel === "granddaughter" || rel === "grandson" || /孙女|孙子|外孙|外孙女/.test(relLabel)) {
+          const primary = g === "female" ? "外婆" : "爷爷";
+          const alt = g === "female" ? "外婆" : "外公";
+          return { primary: primary, warm: alt, selfRef: null };
+        }
+        if (rel === "partner" || /老伴|丈夫|妻子|爱人/.test(relLabel)) {
+          const nick = short.length > 0 ? "老" + short : "老伴";
+          return { primary: nick, warm: g === "female" ? "老伴" : "老头子", selfRef: null };
+        }
+        if (rel === "parent" || /父|母|爸|妈/.test(relLabel)) {
+          return { primary: g === "female" ? "闺女" : "孩子", warm: "孩子", selfRef: null };
+        }
+        if (rel === "friend") {
+          return { primary: "你", warm: "老朋友", selfRef: null };
+        }
+        return { primary: "您", warm: "您", selfRef: null };
+      }
+
+      function honorific() {
+        return kinAddress().primary;
+      }
+
+      function callName() {
+        return kinAddress().warm;
+      }
+
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+      function homeGreetingByHour() {
+        const h = new Date().getHours();
+        if (h >= 5 && h <= 11) return "早安，见字如面";
+        if (h >= 12 && h <= 17) return "午安，见字如面";
+        if (h >= 18 && h <= 22) return "晚安，见字如面";
+        return "夜安，见字如面";
+      }
+
+      function applyHomeGreeting() {
+        const el = $("homeGreeting");
+        if (el) el.textContent = homeGreetingByHour();
+      }
+
+      const LEGAL_WELLNESS_ACK_KEY = "weai-legal-wellness-ack";
+
+      function hasWellnessLegalAck() {
+        try {
+          return localStorage.getItem(LEGAL_WELLNESS_ACK_KEY) === "1";
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function setWellnessLegalAck() {
+        try {
+          localStorage.setItem(LEGAL_WELLNESS_ACK_KEY, "1");
+        } catch (err) {}
+      }
+
+      function openLegalDisclaimerModal(wellnessGate) {
+        state.legalDisclaimerWellnessGate = !!wellnessGate;
+        $("legalDisclaimerModal").classList.add("show");
+      }
+
+      function closeLegalDisclaimerModal(didAck) {
+        if (didAck) setWellnessLegalAck();
+        state.legalDisclaimerWellnessGate = false;
+        $("legalDisclaimerModal").classList.remove("show");
+      }
+
+      function openLegalPrivacyModal() {
+        $("legalPrivacyModal").classList.add("show");
+      }
+
+      function closeLegalPrivacyModal() {
+        $("legalPrivacyModal").classList.remove("show");
+      }
+
+      function maybePromptWellnessLegal() {
+        if (!hasWellnessLegalAck()) openLegalDisclaimerModal(true);
+      }
+
+      function toJDN(y, m, d) {
+        const a = Math.floor((14 - m) / 12);
+        const y2 = y + 4800 - a;
+        const m2 = m + 12 * a - 3;
+        return d + Math.floor((153 * m2 + 2) / 5) + 365 * y2 + Math.floor(y2 / 4) - Math.floor(y2 / 100) + Math.floor(y2 / 400) - 32045;
+      }
+
+      const ZHI_MAIN_QI = ["癸", "己", "甲", "乙", "戊", "丙", "丁", "己", "庚", "辛", "戊", "壬"];
+      const GAN_YANG = { 甲: 1, 乙: 0, 丙: 1, 丁: 0, 戊: 1, 己: 0, 庚: 1, 辛: 0, 壬: 1, 癸: 0 };
+      const SHISHEN = ["比肩", "劫财", "食神", "伤官", "偏财", "正财", "七杀", "正官", "偏印", "正印"];
+      /** 日主五行同频文案（按日干，非硬编码） */
+      const DAY_MASTER_SYNC = {
+        甲: "志在高远、仁厚担当、重情有主见",
+        乙: "柔中有韧、细腻贴体、善体察人心",
+        丙: "热情明亮、表达直率、暖心开朗",
+        丁: "温润安静、心思细密、慢热多情",
+        戊: "厚重可信、讲信守分、外稳内暖",
+        己: "务实谦和、操持有度、细水长流",
+        庚: "爽利重义、原则清楚、护短护家",
+        辛: "灵秀敏锐、爱美重趣、嘴软心软",
+        壬: "智深如海、贴心敏锐、表达欲与共情力强",
+        癸: "灵动多思、善听善忍、情感丰沛"
+      };
+
+      /** 日柱锚点：1991-04-12 公历（农历辛未年二月廿八）= 壬子日 */
+      const SOLAR_DAY_ANCHOR = { y: 1991, m: 4, d: 12, ganIdx: 8, zhiIdx: 0 };
+
+      /** 春节公历（正月初一），用于农历转公历 */
+      const SPRING_FESTIVAL = {
+        1980: [2, 16], 1981: [2, 5], 1982: [1, 25], 1983: [2, 13], 1984: [2, 2],
+        1985: [2, 20], 1986: [2, 9], 1987: [1, 29], 1988: [2, 17], 1989: [2, 6],
+        1990: [1, 27], 1991: [2, 15], 1992: [2, 4], 1993: [1, 23], 1994: [2, 10],
+        1995: [1, 31], 1996: [2, 19], 1997: [2, 7], 1998: [1, 28], 1999: [2, 16],
+        2000: [2, 5], 2001: [1, 24], 2002: [2, 12], 2003: [2, 1], 2004: [1, 22],
+        2005: [2, 9], 2006: [1, 29], 2007: [2, 18], 2008: [2, 7], 2009: [1, 26],
+        2010: [2, 14], 2011: [2, 3], 2012: [1, 23], 2013: [2, 10], 2014: [1, 31],
+        2015: [2, 19], 2016: [2, 8], 2017: [1, 28], 2018: [2, 16], 2019: [2, 5],
+        2020: [1, 25], 2021: [2, 12], 2022: [2, 1], 2023: [1, 22], 2024: [2, 10],
+        2025: [1, 29], 2026: [2, 17]
+      };
+
+      /** 各农历年大小月（无闰月简化表，缺省回退估算） */
+      const LUNAR_MONTH_DAYS_TABLE = {
+        1991: [29, 28, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29]
+      };
+
+      function mod(n, m) { return ((n % m) + m) % m; }
+
+      function lunarMonthDays(year, lunarMonth) {
+        const tbl = LUNAR_MONTH_DAYS_TABLE[year];
+        if (tbl && lunarMonth >= 1 && lunarMonth <= 12) return tbl[lunarMonth - 1];
+        return lunarMonth % 2 === 1 ? 30 : 29;
+      }
+
+      function solarFromLunar(year, lunarMonth, lunarDay) {
+        const sf = SPRING_FESTIVAL[year];
+        if (!sf || lunarMonth < 1 || lunarDay < 1) return null;
+        let offset = lunarDay - 1;
+        for (let lm = 1; lm < lunarMonth; lm++) offset += lunarMonthDays(year, lm);
+        const dt = new Date(year, sf[0] - 1, sf[1]);
+        dt.setDate(dt.getDate() + offset);
+        return dt.getFullYear() + "-" + pad2(dt.getMonth() + 1) + "-" + pad2(dt.getDate());
+      }
+
+      function monthBranchIndex(m, d) {
+        const md = m * 100 + d;
+        if (md < 204) return 1;
+        if (md < 306) return 2;
+        if (md < 404) return 3;
+        if (md < 505) return 4;
+        if (md < 605) return 5;
+        if (md < 707) return 6;
+        if (md < 807) return 7;
+        if (md < 908) return 8;
+        if (md < 1008) return 9;
+        if (md < 1107) return 10;
+        if (md < 1207) return 11;
+        return 0;
+      }
+
+      function monthGanIndex(yearGanIdx, monthZhiIdx) {
+        const start = [2, 4, 6, 8, 0][mod(yearGanIdx, 5)];
+        const offset = mod(monthZhiIdx - 2, 12);
+        return mod(start + offset, 10);
+      }
+
+      function tenGod(dayGan, targetGan) {
+        const dIdx = GAN.indexOf(dayGan);
+        const tIdx = GAN.indexOf(targetGan);
+        if (dIdx < 0 || tIdx < 0) return "同频";
+        const diff = mod(tIdx - dIdx, 10);
+        return SHISHEN[diff];
+      }
+
+      function dayGanZhiFromSolar(y, m, d) {
+        const jdn = toJDN(y, m, d);
+        const anchorJdn = toJDN(SOLAR_DAY_ANCHOR.y, SOLAR_DAY_ANCHOR.m, SOLAR_DAY_ANCHOR.d);
+        const delta = jdn - anchorJdn;
+        const ganIdx = mod(SOLAR_DAY_ANCHOR.ganIdx + delta, 10);
+        const zhiIdx = mod(SOLAR_DAY_ANCHOR.zhiIdx + delta, 12);
+        return { gan: GAN[ganIdx], zhi: ZHI[zhiIdx], ganIdx: ganIdx, zhiIdx: zhiIdx };
+      }
+
+      function buildBaziAnalysis(y, m, d, hourIdx) {
+        let baziYear = y;
+        if (m < 2 || (m === 2 && d < 4)) baziYear = y - 1;
+        const yearGanIdx = mod(baziYear - 4, 10);
+        const yearZhiIdx = mod(baziYear - 4, 12);
+        const monthZhiIdx = monthBranchIndex(m, d);
+        const monthGanIdx = monthGanIndex(yearGanIdx, monthZhiIdx);
+        const day = dayGanZhiFromSolar(y, m, d);
+        const yearGan = GAN[yearGanIdx];
+        const yearZhi = ZHI[yearZhiIdx];
+        const monthGan = GAN[monthGanIdx];
+        const monthZhi = ZHI[monthZhiIdx];
+        const dayGan = day.gan;
+        const dayZhi = day.zhi;
+        let hourGan = null;
+        let hourZhi = null;
+        if (hourIdx !== "" && hourIdx != null && hourIdx !== undefined) {
+          hourZhi = ZHI[Number(hourIdx)];
+          hourGan = GAN[mod(day.ganIdx % 5 * 2 + Number(hourIdx), 10)];
+        }
+        const el = GAN_EL[day.ganIdx];
+        const monthGod = tenGod(dayGan, ZHI_MAIN_QI[monthZhiIdx]);
+        const pillarsDisplay = hourGan
+          ? yearGan + yearZhi + "年 " + monthGan + monthZhi + "月 " + dayGan + dayZhi + "日 " + hourGan + hourZhi + "时"
+          : yearGan + yearZhi + "年 " + monthGan + monthZhi + "月 " + dayGan + dayZhi + "日";
+        const monthPattern = monthZhi + "月带" + monthGod + "格";
+        const personality = DAY_MASTER_SYNC[dayGan] || "温厚重情、善听善言";
+        const dayMasterLabel = dayGan + el + "日主";
+        const syncLine = dayMasterLabel + " · " + personality;
+        const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+        [yearGan, monthGan, dayGan, hourGan].forEach(function (g) {
+          if (g) counts[GAN_EL[GAN.indexOf(g)]] += 2;
+        });
+        [yearZhi, monthZhi, dayZhi, hourZhi].forEach(function (z) {
+          if (z) counts[ZHI_EL[ZHI.indexOf(z)]] += 1;
+        });
+        return {
+          dayMaster: dayGan,
+          element: el,
+          label: GAN_TRAIT[dayGan],
+          pillars: yearGan + yearZhi + " " + monthGan + monthZhi + " " + dayGan + dayZhi + (hourGan ? " " + hourGan + hourZhi : ""),
+          pillarsDisplay: pillarsDisplay,
+          monthPattern: monthPattern,
+          personality: personality,
+          syncLine: syncLine,
+          monthGod: monthGod,
+          counts: counts,
+          yearGan: yearGan,
+          yearZhi: yearZhi,
+          monthGan: monthGan,
+          monthZhi: monthZhi
+        };
+      }
+
+      function calcBazi(dateStr, hourIdx) {
+        if (!dateStr) return null;
+        const parts = dateStr.split("-").map(Number);
+        if (parts.length < 3) return null;
+        return buildBaziAnalysis(parts[0], parts[1], parts[2], hourIdx);
+      }
+
+      function pad2(n) { return n < 10 ? "0" + n : String(n); }
+
+      function parseBirthText(s) {
+        if (!s) return null;
+        const t = String(s).trim();
+        const digitsOnly = t.replace(/\s/g, "");
+        if (/^\d{8}$/.test(digitsOnly)) {
+          const y = Number(digitsOnly.slice(0, 4));
+          const m = Number(digitsOnly.slice(4, 6));
+          const d = Number(digitsOnly.slice(6, 8));
+          if (m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+            return y + "-" + pad2(m) + "-" + pad2(d);
+          }
+        }
+        const iso = t.match(/(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})/);
+        if (iso && !/农历|阴历/.test(t)) {
+          return iso[1] + "-" + pad2(Number(iso[2])) + "-" + pad2(Number(iso[3]));
+        }
+        const yearM = t.match(/(\d{4})\s*年/);
+        if (!yearM) {
+          const yonly = t.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+          return yonly ? t : null;
+        }
+        const year = Number(yearM[1]);
+        const monthMap = { "正": 1, "一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10, "冬": 11, "十一": 11, "腊": 12, "十二": 12 };
+        let month = 1;
+        const mName = t.match(/农历?(闰)?(正|十一|十二|冬|腊|[一二三四五六七八九十])月/);
+        if (mName) month = monthMap[mName[2]] || 1;
+        else {
+          const mNum = t.match(/(\d{1,2})\s*月/);
+          if (mNum) month = Number(mNum[1]);
+        }
+        let day = 1;
+        const cnNum = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
+        if (/三十/.test(t)) day = 30;
+        else if (/二十九/.test(t)) day = 29;
+        else if (/二十八/.test(t)) day = 28;
+        else if (/二十七/.test(t)) day = 27;
+        else if (/二十六/.test(t)) day = 26;
+        else if (/二十五/.test(t)) day = 25;
+        else if (/二十四/.test(t)) day = 24;
+        else if (/二十三/.test(t)) day = 23;
+        else if (/二十二/.test(t)) day = 22;
+        else if (/二十一/.test(t)) day = 21;
+        else if (/二十(?![一二三四五六七八九])/.test(t) && !/廿/.test(t)) day = 20;
+        else {
+          const dCn = t.match(/初([一二三四五六七八九十])|十([一二三四五六七八九])|廿([一二三四五六七八九])/);
+          if (dCn) {
+            if (dCn[0].indexOf("初") === 0) day = cnNum[dCn[1]] || 1;
+            else if (dCn[0].indexOf("十") === 0 && dCn[2]) day = 10 + cnNum[dCn[2]];
+            else if (dCn[0].indexOf("廿") === 0) day = 20 + (cnNum[dCn[3]] || 0);
+          } else {
+            const dNum = t.match(/(\d{1,2})\s*日/);
+            if (dNum) day = Number(dNum[1]);
+          }
+        }
+        if (/农历|阴历|正月|闰/.test(t)) {
+          const solar = solarFromLunar(year, month, day);
+          if (solar) return solar;
+        }
+        return year + "-" + pad2(month) + "-" + pad2(day);
+      }
+
+      function baziFromText(text) {
+        const iso = parseBirthText(text);
+        return iso ? calcBazi(iso, "") : null;
+      }
+
+      function escHtml(s) {
+        return String(s).replace(/[&<>"]/g, function (c) {
+          return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c];
+        });
+      }
+
+      function renderBaziCardHTML(bazi) {
+        if (!bazi || !bazi.pillarsDisplay) return "";
+        return (
+          '<article class="bazi-card">' +
+          '<p class="bazi-line">「干支八字：<em>' + escHtml(bazi.pillarsDisplay) + "</em>」</p>" +
+          '<p class="bazi-line">「五行同频：<em>' + escHtml(bazi.syncLine || bazi.label) + "</em>」</p>" +
+          "</article>"
+        );
+      }
+
+      function renderBazi(bazi) {
+        const box = $("baziTags");
+        if (!currentProfile()) {
+          box.innerHTML = '<span class="hint">请先添加亲友档案，性格会随档案一同生成。</span>';
+          return;
+        }
+        if (!bazi) {
+          box.innerHTML = '<span class="hint">这位亲友还没有生辰。可在档案里补上，性格会更贴。</span>';
+          return;
+        }
+        box.innerHTML = renderBaziCardHTML(bazi);
+      }
+
+      function previewPfBazi() {
+        const box = $("pfBaziPreview");
+        if (!box) return;
+        const bazi = baziFromText(($("pfBirth").value || "").trim());
+        box.innerHTML = bazi ? renderBaziCardHTML(bazi) : "";
+      }
+
+      function effectiveRole(p) {
+        const relLabel = p.relationLabel || "";
+        if (p.relation === "daughter" || /女儿|姑娘/.test(relLabel)) return "daughter";
+        if (p.relation === "partner" || /老伴|丈夫|妻子|爱人/.test(relLabel)) return "partner";
+        if (p.relation === "granddaughter" || /孙女|外孙女/.test(relLabel)) return "granddaughter";
+        if (p.relation === "grandson" || /孙子|外孙/.test(relLabel)) return "grandson";
+        if (p.relation === "son" || /儿子/.test(relLabel)) return "son";
+        if (p.relation === "parent" || /父|母|爸|妈/.test(relLabel)) return "parent";
+        if (p.relation === "friend" || /闺蜜|老友|朋友/.test(relLabel)) return "friend";
+        return p.relation || "custom";
+      }
+
+      /** 关键词情境匹配（禁止复读用户原句） */
+      function matchDialogScene(text) {
+        const t = (text || "").replace(/\s/g, "");
+        if (!t) return "chat";
+        if (/溜达|散步|公园|刚回来|遛弯|转转|走了一圈|出门/.test(t)) return "walk";
+        if (/干啥|干嘛|做什么|忙啥|在干吗|干什么|做什么呢|嘛呢|在做啥/.test(t)) return "doing";
+        if (/累|辛苦|乏力|忙完|疲惫|乏了|撑不住/.test(t)) return "tired";
+        if (/吃|饭|晚饭|午饭|早饭|饿|菜谱|少放盐|喝粥|厨房|做了啥菜/.test(t)) return "meal";
+        if (/身体|不舒服|头疼|头晕|血压|药|医院|腿疼|腰|胸口/.test(t)) return "health";
+        if (/想你|想念|惦记|想家|孤单|一个人/.test(t)) return "miss";
+        if (/冷|热|天气|下雨|降温|刮风|添衣|穿厚/.test(t)) return "weather";
+        if (/睡|休息|困|早睡|失眠|睡不着/.test(t)) return "sleep";
+        if (/钱|转账|养老金|验证码|骗|中奖/.test(t)) return "money";
+        if (/作业|功课|考试|学校|老师/.test(t)) return "homework";
+        if (/爱你|喜欢你|心疼你/.test(t)) return "love";
+        if (/谢谢|辛苦你|麻烦你/.test(t)) return "thanks";
+        if (/故事|从前|讲讲|那时候/.test(t)) return "story";
+        if (/好吗|怎么样|最近|心情/.test(t)) return "mood";
+        return "chat";
+      }
+
+      function daughterReply(scene, call, warm, text) {
+        const t = (text || "").replace(/\s/g, "");
+        if (scene === "doing" || /干啥|干嘛|嘛呢|做什么/.test(t)) {
+          return call + "，我刚忙完手头工作，正准备吃口晚饭呢。你今晚吃的啥？有没有听话少放盐呀？";
+        }
+        if (scene === "walk") {
+          return warm + "你又去公园溜达啦？散步挺好的，外面冷不冷呀？快喝口热水暖暖身体！";
+        }
+        const bank = {
+          tired: [
+            call + "，听着就心疼。你先坐会儿，别硬撑，晚饭我帮你记着，待会儿记得喝口热的。",
+            warm + "，忙一天了吧？把鞋换了，脚抬高歇十五分钟，我陪你说说话。"
+          ],
+          meal: [
+            call + "，我这边刚盛了一碗汤，热乎的。你那边也别对付，哪怕下点面条加个蛋也行。",
+            warm + "，今天食堂有您爱吃的吗？没有的话我改天给你送过去，别总咸菜配粥啊。"
+          ],
+          health: [
+            call + "，你别吓我。先量个血压歇一歇，哪儿不舒服慢慢说，我这就给您约个号。",
+            warm + "，药按点吃了没？不舒服别自己扛，我现在就给您打电话。"
+          ],
+          miss: [
+            call + "，我也想你呀。刚还翻咱俩的合照呢，周末我回去给您做顿饭，好不好？",
+            warm + "，想我就给我打电话，别一个人闷着，我听着呢。"
+          ],
+          weather: [
+            call + "，外面风大，出门加件外套。您那膝盖怕冷，围巾也戴上。",
+            warm + "，降温了，被窝我帮您晒过，晚上早点歇着别着凉。"
+          ],
+          sleep: [
+            call + "，那您早点睡，别刷手机了。我把灯在心里给您拧暗一点。",
+            warm + "，困了就歇，明儿的事明儿再说，我守着你入梦。"
+          ],
+          money: [
+            call + "，钱的事先别慌。有人催转账、要验证码，一律先挂掉，把原文发我，我帮你看。",
+            warm + "，养老金自己攥好，陌生链接别点，有我在呢。"
+          ],
+          homework: [
+            call + "，您还操心小的呢。他们都好，您把自己身体顾好，我们就踏实了。",
+            warm + "，孩子功课有我们呢，您就负责把自己养得白白胖胖的。"
+          ],
+          love: [
+            call + "，我也爱您，这话不害羞。您把家撑起来，现在换我把日子捧稳。",
+            warm + "，知道，我一直都知道。您对我好，我都记在心里。"
+          ],
+          thanks: [
+            call + "，跟我还客气啥呀。您健康开心，就是给我最好的谢礼。",
+            warm + "，该谢的是我。您把我养这么大，现在轮到我疼您。"
+          ],
+          story: [
+            call + "，您讲，我洗耳恭听。从前那些事儿，我百听不厌。",
+            warm + "，从您年轻时候讲起吧，我给您续下句，像小时候那样。"
+          ],
+          mood: [
+            call + "，我还好，就是有点想家。您今天过得顺不顺？慢慢跟我说。",
+            warm + "，最近还行，就是忙。您呢，有没有谁陪着说说话？"
+          ],
+          chat: [
+            call + "，我在呢。您慢慢唠，今晚正适合跟闺女说说话。",
+            warm + "，有啥事就跟我说，别闷在心里。我听着，不催您。"
+          ]
+        };
+        const list = bank[scene] || bank.chat;
+        return pick(list);
+      }
+
+      function partnerReply(scene, call, warm) {
+        const bank = {
+          doing: [
+            call + "，我在厨房收拾呢，刚把菜热上。你那边忙完没？别空着肚子。",
+            warm + "，刚把电视调到你爱看的台，等你回来一块儿吃饭。"
+          ],
+          walk: [
+            call + "，又出去走啦？挺好，活动活动。回来手凉就握握我的，我给你焐焐。",
+            warm + "，外头风大不大？围巾戴上，别逞强，回家我给你留了热汤。"
+          ],
+          tired: [
+            warm + "，累了就歇，饭在锅里温着。你坐会儿，我给你捶捶肩。",
+            call + "，别硬撑。今天的事放一放，人比啥都要紧。"
+          ],
+          meal: [
+            warm + "，留了你那碟小菜。快回来，再晚就凉了，我等你坐对面。",
+            call + "，吃了吗？没吃我现在热，多少年了还是习惯给你留一口。"
+          ],
+          health: [
+            call + "，哪儿不舒服别瞒我。药在老地方，我比你还清楚。",
+            warm + "，要不明天我陪你去趟医院？别跟我打马虎眼。"
+          ],
+          miss: [
+            warm + "，我也想你。想你折报纸的样子，还有你哼的那首老歌。",
+            call + "，灯还亮着，你慢慢说，我把耳朵凑近些。"
+          ],
+          weather: [
+            call + "，降温了，加衣。这句我说一辈子，还想再说一辈子。",
+            warm + "，风起了，少出门。在家泡杯茶，我陪你。"
+          ],
+          sleep: [
+            warm + "，睡吧。我在，灯不关，像从前一个屋顶下那样。",
+            call + "，早点歇，明儿我陪你去买菜，省得你一个人提重物。"
+          ],
+          money: [
+            call + "，有人催钱先别转。打电话给我，咱俩一起看，不慌。",
+            warm + "，钱是小事，你是大事。验证码别给生人，听见没？"
+          ],
+          mood: [
+            call + "，我还成。你呢，今天有没有人惹你不痛快？跟我说说。",
+            warm + "，日子平淡也好，你在，我就踏实。"
+          ],
+          chat: [
+            warm + "，慢慢说，不着急。锅还在咕嘟，话也在这儿等着。",
+            call + "，我在听。家里都好，就差你回来坐一会儿。"
+          ]
+        };
+        const list = bank[scene] || bank.chat;
+        return pick(list);
+      }
+
+      function genericReply(role, scene, call, warm) {
+        const you = call;
+        const banks = {
+          granddaughter: {
+            doing: [call + "，刚写完作业，正想您呢！您吃饭了吗？"],
+            walk: [call + "，出去走啦？回来给我讲讲看见啥好玩的！"],
+            chat: [call + "，我在！想听您讲故事，也想跟您撒撒娇。"]
+          },
+          grandson: {
+            doing: [call + "，刚打完球回来，正喝水呢。您呢？"],
+            walk: [call + "，溜达好！外面冷就早点回，别着凉。"],
+            chat: [call + "，我在，有啥事您说。"]
+          },
+          son: {
+            doing: [call + "，刚下班，正往家赶。您吃了吗？"],
+            chat: [call + "，我在听，您慢慢说。"]
+          },
+          parent: {
+            chat: [call + "，孩子，先吃饭。热乎的比啥都强。"],
+            health: [call + "，不舒服要说，别硬扛，我惦记您。"]
+          },
+          friend: {
+            chat: [call + "，来啦！茶还温着，咱慢慢聊。"],
+            meal: [call + "，吃了吗？没吃咱对着屏幕“碰”一碗。"]
+          },
+          custom: {
+            chat: [call + "，我在呢。您今天过得怎样，愿意说就说。"]
+          }
+        };
+        const pack = banks[role] || banks.custom;
+        const list = pack[scene] || pack.chat || banks.custom.chat;
+        return pick(list);
+      }
+
+      function toneWrap(text, bazi) {
+        if (!bazi) return text;
+        const t = EL_TONE[bazi.element];
+        if (!t) return text;
+        if (bazi.element === "金" && text.length < 40) return text;
+        if (bazi.element === "木") return text.replace(/啦/g, "呀");
+        if (bazi.element === "火" && !/！/.test(text)) return text + "！";
+        if (bazi.element === "水") return text.replace(/。/g, "……").replace(/！/g, "。");
+        if (bazi.element === "土") return text;
+        return text;
+      }
+
+      function flavorTraits(text, p) {
+        const tr = (p && p.traits) || "";
+        if (!tr) return text;
+        if (/药/.test(tr) && !/药/.test(text)) {
+          return text.replace(/。$/, "。药按时吃了吗？");
+        }
+        if (/幽默|玩笑/.test(tr) && text.length < 46) {
+          return text.replace(/。$/, "——这话我可要记到小本本上。");
+        }
+        return text;
+      }
+
+      function starWrap(text, p) {
+        if (!p || p.realm !== "star") return text;
+        return text.replace(/啦/g, "呢").replace(/屏幕/g, "星光");
+      }
+
+      function replyFor(text) {
+        const p = currentProfile() || makeProfile({ name: "亲友" });
+        const addr = kinAddress();
+        const call = addr.primary;
+        const warm = addr.warm;
+        const role = effectiveRole(p);
+        const scene = matchDialogScene(text);
+        let line;
+        if (role === "daughter") {
+          line = daughterReply(scene, call, warm, text);
+        } else if (role === "partner") {
+          line = partnerReply(scene, call, warm);
+        } else {
+          line = genericReply(role, scene, call, warm);
+        }
+        line = flavorTraits(line, p);
+        line = starWrap(line, p);
+        return toneWrap(line, p.bazi);
+      }
+
+      function addBubble(box, who, text, mine, listenText) {
+        const row = document.createElement("div");
+        row.className = "bubble-row" + (mine ? " me" : "");
+        const b = document.createElement("div");
+        b.className = "bubble " + (mine ? "me" : "ai");
+        if (!mine) {
+          const w = document.createElement("div");
+          w.className = "who";
+          w.textContent = who;
+          b.appendChild(w);
+        }
+        const p = document.createElement("div");
+        p.textContent = text;
+        b.appendChild(p);
+        if (!mine && listenText) {
+          const btn = document.createElement("button");
+          btn.className = "listen-btn";
+          btn.type = "button";
+          btn.textContent = "🔊 聆听原声回复";
+          btn.addEventListener("click", function () { speak(listenText); });
+          b.appendChild(btn);
+        }
+        row.appendChild(b);
+        box.appendChild(row);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function greeting() {
+        const p = currentProfile();
+        if (!p) return "夜安。把想见的人，轻轻请出来。";
+        const addr = kinAddress();
+        const call = addr.primary;
+        const warm = addr.warm;
+        if (p.realm === "star") {
+          if (p.relation === "parent" || /母|父|妈|爸/.test(p.relationLabel)) {
+            return call + "，星星这边很静。你说话，我都听得见。天冷了，要记得添衣，饭也要吃热乎的。";
+          }
+          return call + "，我是" + p.name + "。星光不远，把心里的话交给我吧。";
+        }
+        const map = {
+          granddaughter: call + "！今天有什么开心事吗？我功课写完啦，想听您讲故事呢！",
+          grandson: call + "，我来啦。今天想听您讲从前，也想跟您说学校的事。",
+          daughter: call + "，今天累不累？我刚才还在想你呢，晚上想吃点啥？我听着你说。",
+          son: call + "，今天累不累？您别硬撑，有事就跟我说。",
+          partner: warm + "，灯还亮着。你把今天的事，慢慢说给我听。",
+          parent: call + "，先问问你，饭吃了没有？别总凑合。",
+          friend: call + "，茶还温着。我们对着说一会儿，不急。",
+          custom: call + "，我在呢。您慢慢说，我听着。"
+        };
+        let g = map[p.relation] || map.custom;
+        if (/女儿|姑娘/.test(p.relationLabel) && p.relation === "custom") {
+          g = call + "，今天累不累？我刚才还在想你呢，晚上想吃点啥？我听着你说。";
+        }
+        if (p.traits && /药/.test(p.traits) && p.relation !== "daughter") g += " 药，也别忘了。";
+        return g;
+      }
+
+      function resetChat() {
+        const box = $("chatBox");
+        box.innerHTML = "";
+        const p = currentProfile();
+        if (!p) {
+          state.lastAiText = "";
+          addBubble(box, "岁悦长青", "夜安。请先添加亲友档案，我们再慢慢说话。", false, null);
+          syncProfileMeta();
+          return;
+        }
+        const g = greeting();
+        state.lastAiText = g;
+        addBubble(box, p.name, g, false, g);
+        syncProfileMeta();
+      }
+
+      function sendDialogue() {
+        const input = $("userInput");
+        const text = (input.value || "").trim();
+        if (!text) return;
+        if (!currentProfile()) {
+          openProfileModal();
+          return;
+        }
+        const box = $("chatBox");
+        const p = currentProfile();
+        addBubble(box, "我", text, true);
+        input.value = "";
+        const reply = replyFor(text);
+        state.lastAiText = reply;
+        setTimeout(function () {
+          addBubble(box, p.name, reply, false, reply);
+        }, 280);
+      }
+
+      function speak(text) {
+        if (!window.speechSynthesis) {
+          $("voiceStatus").textContent = "此浏览器暂不能出声，但字句都在。";
+          return;
+        }
+        const p = currentProfile() || {};
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "zh-CN";
+        const v = p.voice || { rate: 1, pitch: 1 };
+        u.rate = p.voiceReady ? v.rate : 1;
+        u.pitch = p.voiceReady ? v.pitch : 1;
+        const voices = window.speechSynthesis.getVoices();
+        const zh = voices.find(function (x) { return /zh|Chinese/i.test(x.lang); });
+        if (zh) u.voice = zh;
+        $("cloneWave").classList.add("live");
+        u.onend = function () { $("cloneWave").classList.remove("live"); };
+        window.speechSynthesis.speak(u);
+      }
+
+      function startClone() {
+        const p = currentProfile();
+        if (!p) { openProfileModal(); return; }
+        const wave = $("cloneWave");
+        const status = $("voiceStatus");
+        const btn = $("cloneVoice");
+        wave.classList.add("live");
+        status.textContent = "正在采集声纹，请让 " + p.name + " 轻轻说三十秒……";
+        btn.disabled = true;
+        setTimeout(function () {
+          status.textContent = "声纹已落下，正在复刻 TA 的气息与停顿……";
+        }, 1400);
+        setTimeout(function () {
+          p.voiceReady = true;
+          persistProfiles();
+          wave.classList.remove("live");
+          status.textContent = "已生成 " + p.name + " 的专属声线。点气泡旁的「聆听原声回复」即可听见。";
+          btn.disabled = false;
+          btn.textContent = "声纹已复刻，可再录一次";
+        }, 2800);
+      }
+
+      function persistProfiles() {
+        try {
+          localStorage.setItem("weai-kin-profiles", JSON.stringify(state.profiles));
+          localStorage.removeItem("weai-profiles");
+        } catch (err) {}
+      }
+
+      function isPresetProfile(item) {
+        if (!item) return true;
+        if (PRESET_IDS[item.id]) return true;
+        if (PRESET_NAMES[item.name]) return true;
+        return !(item.name && String(item.name).trim());
+      }
+
+      function loadProfiles() {
+        try {
+          const raw = localStorage.getItem("weai-kin-profiles") || localStorage.getItem("weai-profiles");
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              return parsed.filter(function (item) { return !isPresetProfile(item); }).map(function (item) {
+                const p = makeProfile(item);
+                if (p.birthText) p.bazi = baziFromText(p.birthText);
+                return p;
+              });
+            }
+          }
+        } catch (err) {}
+        return [];
+      }
+
+      function syncProfileMeta() {
+        const p = currentProfile();
+        renderBazi(p && p.bazi);
+        if (!p) {
+          $("cloneVoice").textContent = "开始复刻声纹";
+          $("voiceStatus").textContent = "请先添加亲友档案，再为 TA 留下声音。";
+          return;
+        }
+        $("cloneVoice").textContent = p.voiceReady ? "声纹已复刻，可再录一次" : "开始复刻声纹";
+        $("voiceStatus").textContent = p.voiceReady
+          ? "已生成 " + p.name + " 的专属声线。点气泡旁的「聆听原声回复」即可听见。"
+          : "尚未采集。轻轻录一段，我们为您留下 " + p.name + " 的声纹。";
+      }
+
+      function setRealm(realm) {
+        state.realm = realm;
+        document.querySelectorAll(".realm-tab").forEach(function (t) {
+          t.classList.toggle("active", t.getAttribute("data-realm") === realm);
+        });
+        const stage = $("profileStage");
+        const sparks = $("sparkles");
+        const star = realm === "star";
+        stage.classList.toggle("star", star);
+        sparks.hidden = !star;
+        $("panel-dialogue").classList.toggle("star-skin", star);
+        $("realmLead").textContent = star
+          ? "他们变成了星星。点开一张卡片，星光会把话轻轻送回来。"
+          : "把想见的人收进一张卡片。点开，就能听见 TA 的语气与声线。";
+        if (star && !sparks.childNodes.length) {
+          for (let i = 0; i < 14; i++) {
+            const d = document.createElement("i");
+            d.style.left = (6 + Math.random() * 88) + "%";
+            d.style.top = (8 + Math.random() * 78) + "%";
+            d.style.animationDelay = (Math.random() * 2) + "s";
+            sparks.appendChild(d);
+          }
+        }
+        const list = state.profiles.filter(function (p) { return p.realm === realm; });
+        const stillHere = list.filter(function (p) { return p.id === state.roleId; }).length;
+        if (stillHere) {
+          renderProfiles();
+          return;
+        }
+        state.roleId = list.length ? list[0].id : "";
+        renderProfiles();
+        resetChat();
+      }
+
+      function renderProfiles() {
+        const grid = $("profileGrid");
+        grid.innerHTML = "";
+        const list = state.profiles.filter(function (p) { return p.realm === state.realm; });
+        if (!list.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty-realm";
+          empty.textContent = "暂未添加亲友，点击下方【+ 自定义添加亲友/星星】建立专属档案";
+          grid.appendChild(empty);
+        }
+        list.forEach(function (p) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "profile-card" + (p.id === state.roleId ? " active" : "");
+          const emoji = p.realm === "star" ? "✨" : (REL_EMOJI[p.relation] || "🤍");
+          const trait = p.bazi && p.bazi.syncLine
+            ? p.bazi.dayMaster + p.bazi.element + "日主"
+            : (p.traits || p.relationLabel);
+          btn.innerHTML = "<span class='who-name'>" + emoji + " " + escHtml(p.name) + "</span><small>" +
+            escHtml(p.relationLabel) + (trait ? " · " + escHtml(trait) : "") + "</small>";
+          btn.addEventListener("click", function () {
+            state.roleId = p.id;
+            renderProfiles();
+            resetChat();
+          });
+          grid.appendChild(btn);
+        });
+        const add = document.createElement("button");
+        add.type = "button";
+        add.className = "profile-card add-card";
+        add.innerHTML = "<span class='plus'>+</span>自定义添加亲友/星星";
+        add.addEventListener("click", openProfileModal);
+        grid.appendChild(add);
+      }
+
+      function openProfileModal() {
+        $("profileModal").classList.add("show");
+        $("pfName").value = "";
+        $("pfRelation").value = "";
+        $("pfRelationCustom").value = "";
+        $("pfRelationCustom").style.display = "none";
+        $("pfBirth").value = "";
+        $("pfTraits").value = "";
+        state.pendingVoice = false;
+        $("pfVoiceBtn").textContent = "🎤 录入 / 上传音色";
+        $("pfVoiceHint").textContent = "尚未采样。点一下，我们模拟提取 TA 的声纹特征。";
+        $("pfBaziPreview").innerHTML = "";
+        document.querySelectorAll("input[name=pfRealm]").forEach(function (r) {
+          r.checked = r.value === state.realm;
+        });
+        $("pfName").focus();
+      }
+
+      function closeProfileModal() {
+        $("profileModal").classList.remove("show");
+      }
+
+      function simulateProfileVoice() {
+        state.pendingVoice = true;
+        const hint = $("pfVoiceHint");
+        const btn = $("pfVoiceBtn");
+        btn.disabled = true;
+        hint.textContent = "正在提取声纹特征，气息与停顿轻轻落下……";
+        setTimeout(function () {
+          hint.textContent = "已模拟完成。保存档案后，即可用这缕声音说话。";
+          btn.disabled = false;
+          btn.textContent = "🎤 声纹已采集，可再录";
+        }, 1600);
+      }
+
+      function saveNewProfile() {
+        const name = ($("pfName").value || "").trim();
+        if (!name) {
+          $("pfName").focus();
+          $("pfName").placeholder = "请先写下称呼或姓名";
+          return;
+        }
+        const relation = $("pfRelation").value || "custom";
+        let relationLabel = REL_LABEL[relation] || "亲人";
+        if (relation === "custom") {
+          relationLabel = ($("pfRelationCustom").value || "").trim() || "亲人";
+        }
+        const realm = (document.querySelector("input[name=pfRealm]:checked") || {}).value || "living";
+        const birthText = ($("pfBirth").value || "").trim();
+        const traits = ($("pfTraits").value || "").trim();
+        const p = makeProfile({
+          name: name,
+          relation: relation,
+          relationLabel: relationLabel,
+          realm: realm,
+          birthText: birthText,
+          bazi: baziFromText(birthText),
+          traits: traits,
+          voiceReady: !!state.pendingVoice
+        });
+        state.profiles.push(p);
+        persistProfiles();
+        closeProfileModal();
+        state.realm = realm;
+        state.roleId = p.id;
+        setRealm(realm);
+        resetChat();
+      }
+
+      function voiceInput() {
+        const overlay = $("voiceOverlay");
+        const tip = $("voiceOverlayText");
+        overlay.classList.add("show");
+        tip.textContent = "正在倾听您的声音……";
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const finish = function (words) {
+          tip.textContent = words ? "字句已轻轻落下" : "我把耳朵凑近了";
+          setTimeout(function () {
+            overlay.classList.remove("show");
+            if (words) $("userInput").value = words;
+            else $("userInput").placeholder = "演示里也可以直接打字，意思我们都懂。";
+            $("userInput").focus();
+          }, 900);
+        };
+        let settled = false;
+        const done = function (words) {
+          if (settled) return;
+          settled = true;
+          finish(words);
+        };
+        setTimeout(function () { done(""); }, 2200);
+        if (!SpeechRec) return;
+        try {
+          const rec = new SpeechRec();
+          rec.lang = "zh-CN";
+          rec.onresult = function (e) {
+            done(e.results[0][0].transcript);
+          };
+          rec.onerror = function () { done(""); };
+          rec.start();
+        } catch (err) {
+          done("");
+        }
+      }
+
+      function formatCNDate(d) {
+        const n = "〇一二三四五六七八九";
+        const year = String(d.getFullYear()).split("").map(function (c) { return n[Number(c)]; }).join("");
+        const monthMap = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
+        const day = d.getDate();
+        let dayStr = "";
+        if (day <= 10) dayStr = (day === 10 ? "十" : n[day]);
+        else if (day < 20) dayStr = "十" + (day === 10 ? "" : n[day - 10]);
+        else if (day === 20) dayStr = "二十";
+        else if (day < 30) dayStr = "二十" + n[day - 20];
+        else dayStr = day === 30 ? "三十" : "三十" + n[day - 30];
+        return year + "年" + monthMap[d.getMonth() + 1] + "月" + dayStr + "日";
+      }
+
+      function sexagenaryIndexFromGz(ganIdx, zhiIdx) {
+        for (let i = 0; i < 60; i++) {
+          if (mod(i, 10) === ganIdx && mod(i, 12) === zhiIdx) return i;
+        }
+        return 0;
+      }
+
+      function dayunNameForAge(bazi, age) {
+        const mg = GAN.indexOf(bazi.monthGan);
+        const mz = ZHI.indexOf(bazi.monthZhi);
+        const monthIdx = sexagenaryIndexFromGz(mg, mz);
+        const yangYear = GAN_YANG[bazi.yearGan] === 1;
+        const forward = yangYear ? elderGender() === "male" : elderGender() === "female";
+        const step = Math.min(6, Math.max(1, Math.floor(age / 10)));
+        const idx = mod(monthIdx + (forward ? 1 : -1) * step, 60);
+        return GAN[mod(idx, 10)] + ZHI[mod(idx, 12)] + "大运";
+      }
+
+      function letterAgeEmoji(age) {
+        if (age <= 30) return "🌸";
+        if (age <= 50) return "🌿";
+        return "✨";
+      }
+
+      function letterIntent(text) {
+        const t = (text || "").replace(/\s/g, "");
+        if (/唏嘘|六十几|六十多|这辈子|回忆起来|精彩|辛苦你了|当年的你|老了/.test(t)) return "reflect_life";
+        if (/女儿|闺女|儿子|小子|刚出生|一岁|两岁|尿布|当爹|当妈|带娃|哄睡/.test(t)) return "kid_talk";
+        if (/发财|当官|出息|头发|秃|啤酒肚|胖了吗|瘦了吗/.test(t)) return "tease_future";
+        if (/累|辛苦|乏|撑|难|熬/.test(t)) return "tired";
+        if (/吃|饭|睡|身体|健康|血压|药|医院/.test(t)) return "health";
+        if (/后悔|遗憾|要是|当年|如果/.test(t)) return "regret";
+        if (/开心|高兴|幸福|满足|不错|还好|挺好/.test(t)) return "glad";
+        if (/想|念|惦记|孤独|孤单/.test(t)) return "miss";
+        if (/工作|忙|退休|家/.test(t)) return "life";
+        if (/谢谢|感谢|在吗|你好/.test(t)) return "warm";
+        return "chat";
+      }
+
+      function letterReply(text) {
+        const self = state.letterSelf;
+        const base = state.memoryBase;
+        if (!self || !base) return "先唠两句你的人生，再开情书——不然我这镜子里的家伙可对不上号。";
+        const age = self.age;
+        const intent = letterIntent(text);
+        const f = letterFlavor(base);
+        const young = age <= 30;
+        const mid = age > 30 && age < 55;
+        const oldSelf = age >= 55;
+
+        if (intent === "reflect_life") {
+          if (young) {
+            return pick([
+              "豁！我都六十多啦？那咱这辈子可太精彩了！快跟我说说，咱最后当官了还是发财了？头发还在不？",
+              "六十几？行啊你！说明咱没白折腾。后来是住上大房子了，还是把" + f.homeHint + "那口气一直揣到现在？"
+            ]);
+          }
+          if (oldSelf) {
+            return pick([
+              "唏嘘啥呀，咱俩一条命过来的。要我说，能坐这儿回忆，就值回票价了。再整一口？",
+              "辛苦？那会儿是苦，可现在你不也挺能扛嘛。别卖惨，说点乐呵的。"
+            ]);
+          }
+          return "别感慨了，听着像我爸那辈。你倒是交代：后来咱" + f.hustleHint + "那关，闯过去没？";
+        }
+
+        if (intent === "kid_talk") {
+          const kid = /儿子|小子/.test(text) ? "小子" : (f.kinHint === "小子" ? "小子" : "闺女");
+          if (age === 30 || age === 20) {
+            if (/女儿|闺女/.test(text) || kid === "闺女") {
+              return pick([
+                "别提了！天天尿布洗得手都起皮了，累得要死还舍不得放下。你现在轻松了吧？快告诉我闺女以后孝不孝顺！",
+                "一岁？那我正睡不够呢！你现在是当姥爷了还是仍当爹当妈？别光乐，报个近况！"
+              ]);
+            }
+            return "带娃那酸爽我懂——腰快断了嘴还得哄。你现在轻松了吧？娃皮不皮？";
+          }
+          if (oldSelf) {
+            return "哈，小不点儿那会儿最磨人，也最让人心软。现在能陪你就多陪，别等以后拍大腿。";
+          }
+          return "家里有小家伙了？忙是忙，心里甜吧。别装深沉，说点具体的，让我这年纪的也乐呵乐呵。";
+        }
+
+        if (intent === "tease_future") {
+          return pick([
+            "别卖关子！发财了请我喝酒，当官了别忘本啊。头发……你就直说，还密不密？",
+            "我就好奇这个！咱后来到底混成啥样了——别跟我打官腔，咱俩谁跟谁。"
+          ]);
+        }
+
+        if (intent === "tired") {
+          if (young) {
+            return pick([
+              "累吧？我这也正喘呢。今晚别硬撑，该歇歇——明儿还得跟命较劲呢。",
+              "懂懂懂，" + f.hustleHint + "谁不熬两眼圈。去整口热乎的，别跟自己过不去。"
+            ]);
+          }
+          return pick([
+            "歇会儿，别跟年轻人比体力。你扛过来的那些，够吹半辈子了，现在该偷懒就偷懒。",
+            "辛苦那劲儿我记着，可你别老拿它压自己。坐会儿，慢慢说。"
+          ]);
+        }
+
+        if (intent === "health") {
+          return pick([
+            "身子骨别糊弄。该看就看，别信门口那些保健讲座——那玩意儿我听着就来气。",
+            "别硬扛啊。当年" + f.kinHint + "咋念叨的来着？吃饭按时，别跟药过不去。"
+          ]);
+        }
+
+        if (intent === "regret") {
+          return pick([
+            "后悔个啥，当时谁知道呢。能走到现在，说明咱命硬，心也软，这就够了。",
+            "别老如果如果的，听着闹心。说点后来怎么翻盘的，我爱听这个。"
+          ]);
+        }
+
+        if (intent === "glad") {
+          return pick([
+            "行啊！听着就带劲。保持这劲儿，别飘也别怂。",
+            "这就对了嘛。日子嘛，不就图个心里亮堂？再来点细节，让我也跟着美一下。"
+          ]);
+        }
+
+        if (intent === "miss") {
+          return pick([
+            "我也在呢，就是隔了层玻璃。想谁了就说，别憋着装硬汉。",
+            "惦记正常。人嘛，就是一串念想堆起来的。慢慢唠，今晚时间多。"
+          ]);
+        }
+
+        if (intent === "life") {
+          return pick([
+            "家和工作，俩磨人的主。你平衡得咋样？别跟我讲大道理，讲人话。",
+            "退休没？忙不忙？我这儿正" + f.hustleHint + "呢，跟你对个频。"
+          ]);
+        }
+
+        if (intent === "warm") {
+          return pick([
+            "跟自个儿还客气啥。坐，想喝啥自己倒。",
+            "行，我在。今晚就当跟死党喝大酒，有啥说啥。"
+          ]);
+        }
+
+        if (young) {
+          return pick([
+            "说点具体的呗——我这儿正年轻呢，好奇得很。",
+            "我在听，别端着的。咱俩就当深夜撸串，想到啥说啥。"
+          ]);
+        }
+        if (oldSelf) {
+          return pick([
+            "嗯，我听着。岁数大了话反而多，你别嫌我絮叨就行。",
+            "慢慢说，不着急。镜子这边时间多。"
+          ]);
+        }
+        return pick([
+          "来，继续。别像念稿，咱唠嗑呢。",
+          "你这一说我又想起" + f.hustleHint + "了——不对，先听你的，后头再说我的。"
+        ]);
+      }
+
+      function resetLetterChat(greeting) {
+        const box = $("letterChat");
+        box.innerHTML = "";
+        const label = state.letterSelf ? state.letterSelf.age + "岁的我" : "时光里的我";
+        addBubble(box, label, greeting, false, greeting);
+      }
+
+      function currentAgeFromIso(iso) {
+        const parts = iso.split("-").map(Number);
+        if (parts.length < 3) return 55;
+        const now = new Date();
+        let age = now.getFullYear() - parts[0];
+        if (now.getMonth() + 1 < parts[1] || (now.getMonth() + 1 === parts[1] && now.getDate() < parts[2])) {
+          age -= 1;
+        }
+        return Math.max(18, Math.min(90, age));
+      }
+
+      function updateLetterStepUI(step) {
+        state.letterStep = step;
+        [1, 2, 3].forEach(function (n) {
+          const line = $("letterFlow" + n);
+          line.classList.remove("active", "done");
+          if (n < step) line.classList.add("done");
+          if (n === step) line.classList.add("active");
+        });
+        $("letterStep1Panel").classList.toggle("show", step >= 1);
+        $("letterStep2Panel").classList.toggle("show", step >= 2);
+        $("letterStep3Panel").classList.toggle("show", step >= 3);
+      }
+
+      function letterCalcFoundation() {
+        const raw = ($("letterBirth").value || "").trim();
+        const iso = parseBirthText(raw);
+        if (!iso) {
+          $("letterBirth").focus();
+          $("letterBirth").placeholder = "请先填写生辰，如 19910412";
+          return;
+        }
+        const bazi = calcBazi(iso, "");
+        if (!bazi) return;
+        const ageNow = currentAgeFromIso(iso);
+        const curDayun = dayunNameForAge(bazi, ageNow);
+        state.letterBirthIso = iso;
+        state.letterFoundationBazi = bazi;
+        state.letterCurrentDayun = curDayun;
+        try {
+          localStorage.setItem("weai-letter-birth", iso);
+        } catch (err) {}
+
+        const box = $("letterBaziFoundation");
+        box.innerHTML =
+          renderBaziCardHTML(bazi) +
+          '<p class="hint" style="margin-top:10px;text-align:center;">当前大运：<strong>' +
+          escHtml(curDayun) + "</strong> · 约 " + ageNow + " 岁</p>";
+        box.classList.add("show");
+        updateLetterStepUI(2);
+        $("letterStep2Panel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function letterMeetSelf() {
+        if (!state.letterFoundationBazi) {
+          updateLetterStepUI(1);
+          return;
+        }
+        const bazi = state.letterFoundationBazi;
+        const btn = $("letterDrawBtn");
+        btn.disabled = true;
+        const card = $("letterCard");
+        const stage = $("letterCardStage");
+        stage.classList.add("show");
+        card.classList.remove("flipped");
+        card.classList.add("letter-shuffle");
+        $("letterChatWrap").hidden = true;
+
+        setTimeout(function () {
+          card.classList.remove("letter-shuffle");
+          const age = LETTER_AGES[Math.floor(Math.random() * LETTER_AGES.length)];
+          const dayun = dayunNameForAge(bazi, age);
+          const traits = LETTER_AGE_TRAITS[age];
+          const emoji = letterAgeEmoji(age);
+          state.letterSelf = { age: age, dayun: dayun, traits: traits, bazi: bazi };
+          $("letterAgeLine").textContent = emoji + " 遇见 " + age + " 岁的自己 · " + dayun;
+          $("letterTraitLine").textContent = traits;
+          $("letterDayunTag").textContent = "命盘底座 · " + state.letterCurrentDayun + " · " + bazi.dayMaster + bazi.element + "日主";
+          card.classList.add("flipped");
+          btn.disabled = false;
+          updateLetterStepUI(3);
+          $("letterStep3Panel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 1400);
+      }
+
+      function letterStartDialogue() {
+        if (!state.letterSelf || !state.letterFoundationBazi) {
+          updateLetterStepUI(state.letterSelf ? 3 : 1);
+          return;
+        }
+        const storyRaw = ($("letterStory").value || "").trim();
+        if (!storyRaw || storyRaw.length < 8) {
+          $("letterStory").focus();
+          $("letterStory").placeholder = "再多写几句经历或故事，咱们才能唠到点子上……";
+          return;
+        }
+        const base = parseLifeStory(storyRaw);
+        if (state.letterBirthIso && !base.birthYear) {
+          base.birthYear = Number(state.letterBirthIso.slice(0, 4));
+        }
+        base.baziRef = state.letterCurrentDayun;
+        state.memoryBase = base;
+        showMemoryBaseHint(base);
+
+        const age = state.letterSelf.age;
+        const g = buildLetterGreeting(age, base);
+        const wrap = $("letterChatWrap");
+        wrap.hidden = false;
+        wrap.classList.add("show");
+        resetLetterChat(g);
+        $("letterDayunTag").textContent = "记忆锚点 · " + base.summary;
+        wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function sendLetter() {
+        const input = $("letterInput");
+        const text = (input.value || "").trim();
+        if (!text) return;
+        if (!state.letterSelf) {
+          letterStartDialogue();
+          return;
+        }
+        const box = $("letterChat");
+        addBubble(box, "我", text, true);
+        input.value = "";
+        const reply = letterReply(text);
+        const label = state.letterSelf.age + "岁的我";
+        setTimeout(function () {
+          addBubble(box, label, reply, false, reply);
+        }, 320);
+      }
+
+      function restoreLetterFoundationUI() {
+        const bazi = state.letterFoundationBazi;
+        if (!bazi) return;
+        const box = $("letterBaziFoundation");
+        const ageNow = state.letterBirthIso ? currentAgeFromIso(state.letterBirthIso) : 55;
+        box.innerHTML =
+          renderBaziCardHTML(bazi) +
+          '<p class="hint" style="margin-top:10px;text-align:center;">当前大运：<strong>' +
+          escHtml(state.letterCurrentDayun || dayunNameForAge(bazi, ageNow)) +
+          "</strong> · 约 " + ageNow + " 岁</p>";
+        box.classList.add("show");
+      }
+
+      function startLetterPanel() {
+        try {
+          const iso = localStorage.getItem("weai-letter-birth");
+          if (iso && !($("letterBirth").value || "").trim()) {
+            const d = iso.split("-");
+            $("letterBirth").value = d.length === 3 ? d.join("") : iso;
+          }
+        } catch (err) {}
+        if (state.letterFoundationBazi) restoreLetterFoundationUI();
+        updateLetterStepUI(state.letterSelf ? 3 : (state.letterFoundationBazi ? 2 : 1));
+        const saved = loadMemoryBase();
+        if (saved && saved.raw) {
+          $("letterStory").value = saved.raw;
+          state.memoryBase = saved;
+          if (state.letterSelf) showMemoryBaseHint(saved);
+        }
+      }
+
+      /** Guardian 2.0 · 传销/会销多维深度背调 */
+      function guardianNorm(raw) {
+        return (raw || "").replace(/\s+/g, "");
+      }
+
+      function guardianHas(t, list) {
+        for (let i = 0; i < list.length; i++) {
+          if (t.indexOf(list[i]) !== -1) return true;
+        }
+        return false;
+      }
+
+      function guardianFeeHint(t) {
+        if (/[一二三四五六七八九十两\d]+万/.test(t)) return true;
+        if (/交\d+/.test(t) && /元|块|钱|费|会员|入会/.test(t)) return true;
+        if (/会员费|入会费|门槛|档位|积分/.test(t)) return true;
+        return false;
+      }
+
+      function analyzeGuardianDeep(raw) {
+        const t = guardianNorm(raw);
+        const denyPay = /无需转|不用转|请勿转|不要转|不会要求您转/;
+        let freezeScore = 0;
+        let mlmScore = 0;
+        let salesScore = 0;
+        let normalScore = 0;
+
+        ["冻结", "解冻", "安全账户", "立即核验", "账户异常", "社保卡停用", "养老金被"].forEach(function (k) {
+          if (t.indexOf(k) !== -1) freezeScore += 2;
+        });
+        if (/转至|立刻转账|立即转账|打到安全|验证码/.test(t)) freezeScore += 2;
+        if (/公安|检察院|法院|通缉/.test(t)) freezeScore += 1;
+        if (denyPay.test(t)) freezeScore = Math.max(0, freezeScore - 3);
+
+        const meeting = guardianHas(t, ["讲座", "听课", "会场", "健康讲座", "养生课", "说明会", "体验课", "私域"]);
+        const legitProduct = guardianHas(t, ["正规", "可查", "蓝帽", "批准文号", "官网", "国食健", "SC", "上市公司"]);
+        const falseAd = guardianHas(t, ["包治", "根治", "百病", "神药", "神效", "奇迹", "百分百", "无效退款", "药到病除", "延长寿命"]);
+        const pyramid = guardianHas(t, ["拉人头", "拉人", "下线", "上线", "团队", "提成", "返点", "层级", "介绍朋友", "带朋友", "人头费"]);
+        const highFee = guardianFeeHint(t);
+        const healthProduct = guardianHas(t, ["保健品", "保健", "营养", "胶囊", "口服液", "理疗", "仪器"]);
+
+        if (meeting) mlmScore += 2;
+        if (highFee) mlmScore += 3;
+        if (falseAd) mlmScore += 3;
+        if (pyramid) mlmScore += 4;
+        if (legitProduct && (falseAd || highFee || pyramid)) mlmScore += 3;
+        if (healthProduct && meeting) mlmScore += 2;
+
+        if (healthProduct) salesScore += 2;
+        if (guardianHas(t, ["免费", "名额", "限时", "专家", "义诊", "领取"])) salesScore += 1;
+
+        if (guardianHas(t, ["快递", "电费", "水费", "燃气", "已发货", "预约成功", "天气", "会议通知"])) normalScore += 2;
+
+        let tier = "low";
+        let ratingLabel = "【低危观察 · 暂未见典型诈骗特征】";
+        let reportClass = "low";
+
+        if (freezeScore >= 3) {
+          tier = "freeze";
+          ratingLabel = "【高危警示 · 冒充官方/资金诈骗】";
+          reportClass = "high";
+        } else if (mlmScore >= 5 || (meeting && highFee && (falseAd || pyramid))) {
+          tier = "mlm";
+          ratingLabel = "【高危警示 · 会销传销/虚假宣传套路】";
+          reportClass = "high";
+        } else if (mlmScore >= 3 || salesScore >= 3) {
+          tier = "sales";
+          ratingLabel = "【中危提醒 · 会销推销/夸大宣传风险】";
+          reportClass = "medium";
+        } else if (normalScore >= 2 && mlmScore < 2 && freezeScore < 2) {
+          tier = "normal";
+          ratingLabel = "【相对安心 · 更像日常通知或一般闲聊】";
+          reportClass = "low";
+        }
+
+        const breakdown = [];
+        if (tier === "mlm" || tier === "sales") {
+          if (legitProduct || healthProduct) {
+            breakdown.push("拆解点1：合规产品 ≠ 营销合法（利用正规资质或“网上能查到”卸下防备，现场话术仍可能涉嫌虚假夸大宣传、超出备案功效范围）。");
+          } else {
+            breakdown.push("拆解点1：以“健康”“养老”名义包装，先用关怀建立信任，再推销高溢价产品或服务，存在虚假宣传空间。");
+          }
+          if (highFee || pyramid) {
+            breakdown.push("拆解点2：高额门槛（交数万元入会/买积分/档位升级，或鼓励拉亲友获返点），符合典型传销或会销资金盘特征，资金一旦转出极难追回。");
+          } else if (falseAd) {
+            breakdown.push("拆解点2：承诺“包治百病”等违背科学常识的话术，属于违法宣传，往往伴随高价捆绑销售。");
+          } else if (meeting) {
+            breakdown.push("拆解点2：封闭式讲座、限时优惠、现场逼单，利用群体氛围降低理性判断，是会销常见套路。");
+          }
+          if (pyramid && breakdown.length < 3) {
+            breakdown.push("拆解点3：发展下线、团队计酬、介绍奖励，已触及《禁止传销条例》所禁止的多层级返利模式，请立即止损。");
+          }
+          if (falseAd && !breakdown.some(function (b) { return b.indexOf("包治") !== -1; })) {
+            breakdown.push("拆解点3：把普通食品/保健品说成“神效”，既误导消费，也可能让老人延误正规就医。");
+          }
+        } else if (tier === "freeze") {
+          breakdown.push("拆解点1：冒充社保、银行、公检法，制造“账户冻结/涉案”恐慌，逼您转账或泄露验证码。");
+          breakdown.push("拆解点2：短信/电话里的链接与回拨号码不可信，正规机关不会要求把钱转到“安全账户”。");
+        } else {
+          breakdown.push("拆解点1：暂未识别到会销传销或冒充官方的强特征，但仍建议涉及钱款时多与家人商量。");
+        }
+
+        const legalTips = [];
+        if (tier === "mlm" || tier === "sales") {
+          legalTips.push("市场监管部门持续开展针对私域讲座、养生会销、“包治百病”话术、高额入会与多级返利的专项整治，查实可处罚款、吊销许可，情节严重移送公安。");
+          legalTips.push("《反不正当竞争法》《广告法》《食品安全法》均禁止保健食品宣传疾病治疗功能；组织、领导传销活动可追究刑事责任。");
+          legalTips.push("如已交款或签字，请保留合同、转账记录、听课录音，向 12315 / 12345 或属地市监所投诉举报。");
+        } else if (tier === "freeze") {
+          legalTips.push("公安机关提醒：凡要求转账、索要验证码、点击不明链接的“官方通知”，一律先核实。");
+          legalTips.push("请使用您自己保存的官方电话（银行、社保）回拨确认，勿回拨短信内号码。");
+        } else {
+          legalTips.push("涉及转账、入会、扫码支付前，建议“24 小时冷静期”，先与子女或可信亲友通个电话。");
+        }
+
+        const sal = elderSalutation();
+        const guideLines = [];
+        if (tier === "mlm" || tier === "sales") {
+          guideLines.push(sal + "，您愿意去听讲座、为身体操心，这说明您一直把日子过得认真，咱们得把这份认真用在刀刃上。");
+          guideLines.push("咱们先把钱攥手里最稳，不着急当场掏几万块；真正为您好的正规机构，不会逼您立马转账、当场签字。");
+          guideLines.push("产品网上能查到，也不代表现场说的都对。把资料、合同带回来，去您熟悉的医院或正规药店问一问，再决定也不迟。");
+          if (pyramid || highFee) {
+            guideLines.push("凡是让您拉亲友入会、交高额会员费才“享受优惠”的，都要多留个心眼——钱一旦出去，往往很难要回来。");
+          }
+        } else if (tier === "freeze") {
+          guideLines.push(sal + "，这条消息听着着急，可越急越要停一停。公检法、银行、社保不会短信里让您转账或转到“安全账户”。");
+          guideLines.push("验证码谁也不给，链接先别点。请用您自己记在本上的官方电话回拨核实，别信短信里的号码。");
+          guideLines.push("您辛苦攒下的养老钱，攥在自己手里最踏实。拿不准时，先回家喝口水，明天再办也来得及。");
+        } else {
+          guideLines.push(sal + "，您先把心放稳。凡是当场交钱、扫码入会、限时优惠，都可以缓一缓，回家睡一觉再说。");
+          guideLines.push("拿不准的事，找信得过的亲人或邻居帮您把把关，不丢人，是智慧。");
+        }
+
+        return {
+          tier: tier,
+          reportClass: reportClass,
+          ratingLabel: ratingLabel,
+          breakdown: breakdown,
+          legalTips: legalTips,
+          guideLines: guideLines,
+          isHighRisk: reportClass === "high"
+        };
+      }
+
+      function elderSalutation() {
+        const n = (state.name || "").trim();
+        if (/女士|阿姨|奶奶|婆婆|老妈|妈妈/.test(n)) return "阿姨";
+        if (/先生|叔叔|爷爷|外公|大爷|伯伯|老爸|爸爸/.test(n)) return "叔叔";
+        if (n) return n.replace(/(先生|女士)$/g, "") || "老人家";
+        return "老人家";
+      }
+
+      function primaryGuardianKinLabel() {
+        const targets = kinAlertTargets();
+        if (targets.length && targets[0].name) return targets[0].name;
+        return "子女";
+      }
+
+      function loadGuardianContact() {
+        try {
+          const raw = localStorage.getItem("weai-guardian-contact");
+          if (raw) {
+            const o = JSON.parse(raw);
+            if (o && o.phone) return o;
+          }
+        } catch (err) {}
+        return null;
+      }
+
+      function saveGuardianContact(data) {
+        try {
+          localStorage.setItem("weai-guardian-contact", JSON.stringify(data));
+        } catch (err) {}
+      }
+
+      function maskGuardianPhone(phone) {
+        const p = String(phone || "").replace(/\D/g, "");
+        if (p.length >= 7) return p.slice(0, 3) + "xxxx" + p.slice(-4);
+        if (p.length >= 3) return p.slice(0, 3) + "xxxx";
+        return "xxxx";
+      }
+
+      function openGuardianBindModal() {
+        const kin = primaryGuardianKinLabel();
+        const existing = loadGuardianContact();
+        $("guardianKinName").value = (existing && existing.name) || kin;
+        $("guardianKinPhone").value = (existing && existing.phone) || "";
+        $("guardianKinWechat").value = (existing && existing.wechat) || "";
+        $("guardianBindModal").classList.add("show");
+        $("guardianKinPhone").focus();
+      }
+
+      function closeGuardianBindModal() {
+        $("guardianBindModal").classList.remove("show");
+      }
+
+      function showGuardianAlertSuccess(contact) {
+        const toast = $("guardianAlertToast");
+        const kin = contact.name || primaryGuardianKinLabel();
+        const masked = maskGuardianPhone(contact.phone);
+        const wx = contact.wechat ? "（微信：" + contact.wechat + "）" : "";
+        toast.textContent = "已成功发送微信防骗警报与劝导指引至" + kin + "手机（" + masked + "）" + wx + "。请稍等 TA 来电，切勿再向陌生人转账。";
+        toast.classList.add("show");
+        toast.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function guardianNarrativeText() {
+        const box = $("guardianNarrative");
+        const prev = $("guardianTranscriptPreview");
+        const fromText = box ? (box.value || "").trim() : "";
+        const fromPreview = prev ? (prev.getAttribute("data-text") || "").trim() : "";
+        return fromText || fromPreview;
+      }
+
+      function syncGuardianPreview() {
+        const raw = ($("guardianNarrative").value || "").trim();
+        const prev = $("guardianTranscriptPreview");
+        if (!raw) {
+          prev.classList.remove("show");
+          prev.removeAttribute("data-text");
+          prev.textContent = "";
+          return;
+        }
+        prev.setAttribute("data-text", raw);
+        prev.textContent = "📝 叙述摘要：" + raw;
+        prev.classList.add("show");
+      }
+
+      function renderGuardianReport() {
+        const raw = guardianNarrativeText();
+        const box = $("guardianResult");
+        const toast = $("guardianAlertToast");
+        toast.classList.remove("show");
+        if (!raw) {
+          box.innerHTML = '<div class="result-card">您还没叙述经过。按住上方按钮说话，或点「改用文字叙述」写几句，我们再帮您背调。</div>';
+          return;
+        }
+        const report = analyzeGuardianDeep(raw);
+        let breakdownHtml = "";
+        report.breakdown.forEach(function (line) {
+          breakdownHtml += "<li>" + escHtml(line) + "</li>";
+        });
+        let legalHtml = "";
+        report.legalTips.forEach(function (line) {
+          legalHtml += "<li>" + escHtml(line) + "</li>";
+        });
+        let guideHtml = "";
+        report.guideLines.forEach(function (line) {
+          guideHtml += "<li>" + escHtml(line) + "</li>";
+        });
+        const kinLabel = primaryGuardianKinLabel();
+        const alertBtn = report.isHighRisk
+          ? '<button type="button" class="guardian-alert-btn" id="guardianAlertBtn">📢 一键提醒子女（如：' + escHtml(kinLabel) + "）</button>"
+          : "";
+        box.innerHTML =
+          '<div class="guardian-report ' + report.reportClass + '">' +
+          '<div class="g-block g-rating">🚨 风险评级：' + escHtml(report.ratingLabel) + "</div>" +
+          '<div class="g-block"><h4>🔍 套路拆解</h4><ul>' + breakdownHtml + "</ul></div>" +
+          '<div class="g-block"><h4>⚖️ 通报与法律提示</h4><ul>' + legalHtml + "</ul></div>" +
+          '<div class="g-block g-guide"><h4>💡 给您的温馨安全指引</h4><ul>' + guideHtml + "</ul></div>" +
+          "</div>" + alertBtn;
+        const alertEl = $("guardianAlertBtn");
+        if (alertEl) {
+          alertEl.addEventListener("click", pushGuardianAlert);
+        }
+        state.lastGuardianReport = report;
+        state.lastGuardianNarrative = raw;
+      }
+
+      function kinAlertTargets() {
+        return state.profiles.filter(function (p) {
+          return p.realm === "living" && (p.relation === "daughter" || p.relation === "son" || /女儿|儿子|姑娘/.test(p.relationLabel || ""));
+        });
+      }
+
+      function pushGuardianAlert() {
+        const contact = loadGuardianContact();
+        if (!contact || !String(contact.phone || "").replace(/\D/g, "").match(/^1\d{10}$/)) {
+          state.pendingGuardianAlert = true;
+          openGuardianBindModal();
+          return;
+        }
+        showGuardianAlertSuccess(contact);
+      }
+
+      function saveGuardianBindAndAlert() {
+        const name = ($("guardianKinName").value || "").trim() || primaryGuardianKinLabel();
+        const phone = ($("guardianKinPhone").value || "").trim().replace(/\s/g, "");
+        const wechat = ($("guardianKinWechat").value || "").trim();
+        if (!/^1\d{10}$/.test(phone)) {
+          $("guardianKinPhone").focus();
+          $("guardianKinPhone").placeholder = "请输入 11 位手机号";
+          return;
+        }
+        const data = { name: name, phone: phone, wechat: wechat };
+        saveGuardianContact(data);
+        closeGuardianBindModal();
+        if (state.pendingGuardianAlert) {
+          state.pendingGuardianAlert = false;
+          showGuardianAlertSuccess(data);
+        }
+      }
+
+      let guardianRec = null;
+      let guardianVoiceActive = false;
+
+      function appendGuardianTranscript(chunk) {
+        if (!chunk) return;
+        const area = $("guardianNarrative");
+        const prev = $("guardianTranscriptPreview");
+        const cur = (area.value || prev.getAttribute("data-text") || "").trim();
+        const next = cur ? cur + " " + chunk : chunk;
+        area.value = next;
+        prev.setAttribute("data-text", next);
+        prev.textContent = "📝 叙述摘要：" + next;
+        prev.classList.add("show");
+      }
+
+      function stopGuardianVoice() {
+        guardianVoiceActive = false;
+        $("guardianVoiceHold").classList.remove("recording");
+        $("guardianVoiceHint").textContent = "按住按钮开始说，松开即结束。也可改用文字补充。";
+        if (guardianRec) {
+          try { guardianRec.stop(); } catch (err) {}
+          guardianRec = null;
+        }
+      }
+
+      function startGuardianVoice() {
+        if (guardianVoiceActive) return;
+        guardianVoiceActive = true;
+        $("guardianVoiceHold").classList.add("recording");
+        $("guardianVoiceHint").textContent = "正在听您叙述，松开结束……";
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) {
+          $("guardianVoiceHint").textContent = "此浏览器暂不支持语音识别，请点「改用文字叙述」输入。";
+          guardianVoiceActive = false;
+          $("guardianVoiceHold").classList.remove("recording");
+          return;
+        }
+        try {
+          guardianRec = new SpeechRec();
+          guardianRec.lang = "zh-CN";
+          guardianRec.interimResults = false;
+          guardianRec.continuous = true;
+          guardianRec.onresult = function (e) {
+            let chunk = "";
+            for (let i = e.resultIndex; i < e.results.length; i++) {
+              if (e.results[i].isFinal) chunk += e.results[i][0].transcript;
+            }
+            appendGuardianTranscript(chunk.trim());
+          };
+          guardianRec.onerror = function () { stopGuardianVoice(); };
+          guardianRec.onend = function () {
+            if (guardianVoiceActive) {
+              try { guardianRec.start(); } catch (err) { stopGuardianVoice(); }
+            }
+          };
+          guardianRec.start();
+        } catch (err) {
+          stopGuardianVoice();
+        }
+      }
+
+      function bindGuardianVoiceHold() {
+        const btn = $("guardianVoiceHold");
+        const end = function (e) {
+          if (e) e.preventDefault();
+          stopGuardianVoice();
+        };
+        const start = function (e) {
+          if (e) e.preventDefault();
+          startGuardianVoice();
+        };
+        btn.addEventListener("mousedown", start);
+        btn.addEventListener("mouseup", end);
+        btn.addEventListener("mouseleave", function () {
+          if (guardianVoiceActive) stopGuardianVoice();
+        });
+        btn.addEventListener("touchstart", start, { passive: false });
+        btn.addEventListener("touchend", end, { passive: false });
+        btn.addEventListener("touchcancel", end, { passive: false });
+      }
+
+      const TWIN_POOL = [
+        { name: "林晚秋", age: 27, city: "杭州", el: "木", note: "在茶馆写字的设计师，信里常写“想听长辈讲从前的雨”。" },
+        { name: "周拾光", age: 71, city: "宜兴", el: "土", note: "制壶人。把沉默捏成器皿，等一个懂温度的人。" },
+        { name: "苏青禾", age: 19, city: "成都", el: "木", note: "刚入大学，把老家的灶火写进现代诗。" },
+        { name: "马澄", age: 44, city: "兰州", el: "水", note: "黄河边的中学老师，批改到深夜也给自己留一行温柔。" },
+        { name: "何晚晴", age: 33, city: "厦门", el: "火", note: "海边诊所的护士，相信一碗汤比一句鸡汤更暖。" },
+        { name: "钱石", age: 68, city: "沈阳", el: "金", note: "退休钳工，把精密的手艺活成了对人的老实。" },
+        { name: "沈涟", age: 16, city: "苏州", el: "水", note: "在园林里练字，觉得每一笔都像在给未来回信。" },
+        { name: "郑厚土", age: 80, city: "大理", el: "土", note: "看了一辈子田，说土地不骗老的，也不急小的。" }
+      ];
+
+      function resonance(userEl, otherEl) {
+        if (userEl === otherEl) return 90 + Math.floor(Math.random() * 7);
+        const sheng = { 木: "火", 火: "土", 土: "金", 金: "水", 水: "木" };
+        if (sheng[userEl] === otherEl || sheng[otherEl] === userEl) return 82 + Math.floor(Math.random() * 8);
+        return 70 + Math.floor(Math.random() * 8);
+      }
+
+      const FIVE_ORDER = ["木", "火", "土", "金", "水"];
+
+      function todayFiveElement() {
+        const d = new Date();
+        return FIVE_ORDER[(d.getFullYear() + d.getMonth() * 3 + d.getDate()) % 5];
+      }
+
+      const STYLE_BY_ELEMENT = {
+        木: {
+          main: ["竹青", "黛绿", "米宣"],
+          avoid: "荧光紫、大面积黑",
+          cut: "修长纵线、立领、棉麻宽裤、软肩线",
+          acc: "玉扣、细竹纹围巾、素面布鞋",
+          prose: "如竹临风，清而不冷。今日宜留白与纵线，让气韵上行。"
+        },
+        火: {
+          main: ["茜红", "暖杏", "象牙白"],
+          avoid: "冷灰压色",
+          cut: "微结构肩、V 领针织、及膝半裙或九分西裤",
+          acc: "细金耳钉、丝质方巾",
+          prose: "似灯影温茶，明而不躁。今日宜一点暖色点睛，照见好气色。"
+        },
+        土: {
+          main: ["赭石", "燕麦", "松烟灰"],
+          avoid: "杂乱撞色",
+          cut: "H 型大衣、直筒裤、稳重复古盘扣",
+          acc: "皮质腰带、哑光胸针",
+          prose: "如山含章，厚而不闷。今日宜大地色系，稳住气场。"
+        },
+        金: {
+          main: ["月白", "银灰", "浅驼"],
+          avoid: "过多绒杂色",
+          cut: "利落剪裁、挺括衬衫、锥形裤",
+          acc: "简约腕表、金属细框",
+          prose: "若秋水长天，净而不寡。今日宜线条干脆，留白见贵气。"
+        },
+        水: {
+          main: ["黛蓝", "烟灰", "浅藕"],
+          avoid: "刺目橙红",
+          cut: "垂坠面料、长衫叠穿、宽松廓形",
+          acc: "珍珠、绒面软包",
+          prose: "如夜河映月，柔而有骨。今日宜深浅层叠，养静气。"
+        }
+      };
+
+      function bindUploadTile(inputId, tileId, hintId, defaultHint) {
+        const input = $(inputId);
+        if (!input) return;
+        input.addEventListener("change", function () {
+          const f = input.files && input.files[0];
+          $(tileId).classList.toggle("done", !!f);
+          $(hintId).textContent = f ? "已选：" + f.name : defaultHint;
+        });
+      }
+
+      function inferVisageProfile(hasFace, hasSide, hasBody, bazi) {
+        const seed = (bazi ? bazi.dayMaster.charCodeAt(0) : 0) + (hasFace ? 3 : 0) + (hasSide ? 5 : 0) + (hasBody ? 7 : 0);
+        const profiles = [
+          { face: "方圆脸", body: "肩线平稳、身形敦实", vibe: "温厚可信", tip: "宜柔和领型与垂坠面料，忌过硬垫肩。" },
+          { face: "椭圆脸", body: "比例修长、骨架清晰", vibe: "清朗简净", tip: "宜纵向剪裁与简洁色块，显颈线与腿长。" },
+          { face: "菱形脸", body: "腰腹需平衡", vibe: "灵秀锐气", tip: "宜上松下稳、A 字半裙或微阔裤，柔化肩额。" },
+          { face: "圆脸", body: "曲线柔和", vibe: "亲和气足", tip: "宜深 V 或长线条外套，避免横向膨胀花纹。" }
+        ];
+        const p = profiles[seed % profiles.length];
+        if (hasFace || hasBody) {
+          p.note = "（已结合您上传的影像特征做演示级识体，正式版可接视觉模型精修。）";
+        } else {
+          p.note = "（未上传照片时，依命盘日主气质推演，建议补一张正脸照更准。）";
+        }
+        return p;
+      }
+
+      function renderStyleGuide() {
+        const raw = ($("styleBirth").value || "").trim();
+        const iso = parseBirthText(raw);
+        const box = $("styleResult");
+        if (!iso) {
+          box.innerHTML = '<p class="hint">请先填写生辰，再生成穿搭指南。</p>';
+          $("styleBirth").focus();
+          return;
+        }
+        const bazi = calcBazi(iso, "");
+        if (!bazi) return;
+        const todayEl = todayFiveElement();
+        const userEl = bazi.element;
+        const style = STYLE_BY_ELEMENT[todayEl];
+        const hasFace = $("styleFaceFront").files && $("styleFaceFront").files.length;
+        const hasSide = $("styleFaceSide").files && $("styleFaceSide").files.length;
+        const hasBody = $("styleBody").files && $("styleBody").files.length;
+        const vis = inferVisageProfile(hasFace, hasSide, hasBody, bazi);
+        const swatches = style.main.map(function (c) {
+          return '<span class="style-swatch">' + escHtml(c) + "</span>";
+        }).join("");
+        box.innerHTML =
+          '<article class="module-result">' +
+          "<h4>今日五行 · " + escHtml(todayEl) + "气当令</h4>" +
+          '<p class="hint">您的日主：<strong>' + escHtml(bazi.dayMaster + bazi.element) + "</strong> · 今日宜借「" + escHtml(todayEl) + "」气相生。</p>" +
+          "<h4 style=\"margin-top:16px;font-size:18px;\">看相识体</h4>" +
+          "<p>" + escHtml(vis.face) + " · " + escHtml(vis.body) + " · 气质" + escHtml(vis.vibe) + "。" + escHtml(vis.tip) + "</p>" +
+          "<p class=\"hint\">" + escHtml(vis.note) + "</p>" +
+          "<h4 style=\"margin-top:16px;font-size:18px;\">今日色彩</h4>" +
+          '<div class="style-swatches">' + swatches + "</div>" +
+          "<p>尽量少碰：" + escHtml(style.avoid) + "</p>" +
+          "<h4 style=\"margin-top:16px;font-size:18px;\">款式与配饰</h4>" +
+          "<p><strong>廓形：</strong>" + escHtml(style.cut) + "</p>" +
+          "<p><strong>点睛：</strong>" + escHtml(style.acc) + "</p>" +
+          "<p style=\"font-family:'Songti SC',serif;line-height:1.85;margin-top:12px;\">「" + escHtml(style.prose) + "」</p>" +
+          "<p class=\"hint\">日主偏" + escHtml(userEl) + "者可把今日主色做「内搭或围巾」，不必一身同色，雅胜于艳。</p>" +
+          "</article>";
+        box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function parseHealthSignals(text) {
+        const t = (text || "").replace(/\s/g, "");
+        const out = [];
+        if (/血压|高压|低压|hypertension/i.test(t)) out.push("bp");
+        if (/血糖|糖化|糖尿|glucose/i.test(t)) out.push("glucose");
+        if (/血脂|胆固醇|甘油三酯/i.test(t)) out.push("lipid");
+        if (/尿酸|痛风/i.test(t)) out.push("uric");
+        if (/骨|钙|关节|腿软|膝盖/i.test(t)) out.push("bone");
+        if (/失眠|睡|疲劳|乏力/i.test(t)) out.push("sleep");
+        if (/心慌|胸闷|心悸|气短|心累|CoQ|辅酶/i.test(t)) out.push("heart");
+        if (/眼|视力|黄斑|模糊|干涩|老花/i.test(t)) out.push("vision");
+        if (/便秘|胃|消化|肝/i.test(t)) out.push("digest");
+        return out;
+      }
+
+      const ZHI_ORGAN = {
+        子: "肾与膀胱", 丑: "脾与胃", 寅: "肝与胆", 卯: "肝与筋", 辰: "脾胃湿困",
+        巳: "心与血脉", 午: "心与神明", 未: "脾胃", 申: "肺与皮毛", 酉: "肺与大肠",
+        戌: "脾胃与关节", 亥: "肾与腰脊"
+      };
+
+      const EL_ORGAN = {
+        木: "肝胆与疏泄", 火: "心与血脉", 土: "脾胃与运化", 金: "肺与皮毛", 水: "肾与腰脊"
+      };
+
+      const EL_KE = { 木: "土", 火: "金", 土: "水", 金: "木", 水: "火" };
+
+      function dominantElementFromCounts(counts) {
+        let min = Infinity;
+        let max = -Infinity;
+        let weak = "土";
+        let strong = "土";
+        FIVE_ORDER.forEach(function (el) {
+          const v = counts[el] || 0;
+          if (v < min) { min = v; weak = el; }
+          if (v > max) { max = v; strong = el; }
+        });
+        return { weak: weak, strong: strong };
+      }
+
+      function currentSpacetimeMagnetism() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = now.getMonth() + 1;
+        const d = now.getDate();
+        const cur = buildBaziAnalysis(y, m, d);
+        const yearEl = ZHI_EL[ZHI.indexOf(cur.yearZhi)];
+        const monthEl = ZHI_EL[ZHI.indexOf(cur.monthZhi)];
+        const quarter = [];
+        for (let i = 0; i < 3; i++) {
+          let mm = m + i;
+          let yy = y;
+          while (mm > 12) { mm -= 12; yy += 1; }
+          const mid = buildBaziAnalysis(yy, mm, 15);
+          quarter.push({
+            label: yy + "年" + mm + "月",
+            gz: mid.monthGan + mid.monthZhi,
+            el: ZHI_EL[ZHI.indexOf(mid.monthZhi)],
+            organ: ZHI_ORGAN[mid.monthZhi] || EL_ORGAN[ZHI_EL[ZHI.indexOf(mid.monthZhi)]]
+          });
+        }
+        return {
+          nowLabel: y + "年" + m + "月" + d + "日",
+          liunian: cur.yearGan + cur.yearZhi,
+          liuyue: cur.monthGan + cur.monthZhi,
+          yearEl: yearEl,
+          monthEl: monthEl,
+          monthOrgan: ZHI_ORGAN[cur.monthZhi] || EL_ORGAN[monthEl],
+          quarter: quarter
+        };
+      }
+
+      function buildTemporalHealthWarning(bazi, space) {
+        const dm = bazi.element;
+        const balance = dominantElementFromCounts(bazi.counts || {});
+        const lines = [];
+        lines.push(
+          "当前时空：" + space.liunian + "流年 · " + space.liuyue + "流月（" + space.nowLabel + "）。流年属「" + space.yearEl + "」、流月属「" + space.monthEl + "」，气机侧重" + space.monthOrgan + "。"
+        );
+        if (EL_KE[space.monthEl] === dm) {
+          lines.push("本月流月五行对我日主有「克」势：宜减劳心、防情绪与睡眠波动，别硬扛指标异常。");
+        } else if (EL_KE[dm] === space.monthEl) {
+          lines.push("本月我日主对当令五行有制约力：适合循序调整习惯，但忌过度自信而忽视复查。");
+        } else {
+          lines.push("本月流月与我的日主以调和为主：守住作息与饮食节律，比突击进补更重要。");
+        }
+        lines.push("命盘偏「" + balance.weak + "」气略弱、「" + balance.strong + "」气偏旺——本季度请多关照" + (EL_ORGAN[balance.weak] || "整体平衡") + "。");
+        space.quarter.forEach(function (q, idx) {
+          const tag = idx === 0 ? "本月" : idx === 1 ? "下月" : "再下一月";
+          lines.push(tag + "（" + q.label + " · " + q.gz + "）：" + q.el + "气当令，留意" + q.organ + "；若已有相关症状，提前安排复查而非买「调理套餐」。");
+        });
+        return lines;
+      }
+
+      function parseHealthReportPlain(merged, signals, hasFile) {
+        const lines = [];
+        lines.push("我把报告当成「看地图」而不是「买产品说明书」——指标异常先找医生，不靠会销老师解读。");
+        if (hasFile) {
+          lines.push("已接收上传材料（演示版结合文件名与您的文字描述；正式版可接 OCR 读数）。");
+        }
+        if (!signals.length) {
+          lines.push("暂未识别到具体指标关键词：建议把报告里的「箭头↑↓项」抄进上方描述框，或拍清楚化验单数值再生成。");
+          lines.push("防坑口诀：凡称「溶栓、排毒、逆转、停药用它的」一律拒绝；正规治疗只认医院处方与复查。");
+          return lines;
+        }
+        const map = {
+          bp: "血压：高压/低压偏高常见于盐摄入、体重、睡眠与用药依从性。我要做的是记录、复诊、遵医嘱——不买「降压神茶/胶囊替代药物」。",
+          glucose: "血糖 / 糖化：提示糖代谢压力。少精白主食、餐后动一动、按医嘱测糖；「根治糖尿病」保健品=忽悠。",
+          lipid: "血脂：甘油三酯、LDL 等关系心脑血管。饮食 + 运动 + 必要时他汀，鱼油仅作辅助；拒绝「清血管会销」。",
+          uric: "尿酸：与嘌呤饮食、饮酒、饮水有关。少海鲜啤酒内脏，急性痛风发作就医，不靠「溶晶」天价产品。",
+          bone: "骨骼 / 关节：骨密度、钙代谢或膝腰不适。晒太阳、防跌倒、D3+K2 思路可讨论——先问医生再补，不扫货「纳米钙」。",
+          sleep: "睡眠 / 疲劳：可能是情绪、呼吸睡眠、甲状腺或药物副作用。先查因，不靠「深度睡眠魔贴」堆钱。",
+          heart: "心慌 / 心累：必须排除心律失常、缺血等。辅酶 Q10 是营养辅助，不能替代心电图与处方。",
+          vision: "眼 / 视力：定期眼底检查；叶黄素是养护方向，不信「摘掉老花镜」宣传。",
+          digest: "消化 / 肝：规律饮食、少酒少油；异常转氨酶等要肝病专科看，不买「护肝万能片」包治。"
+        };
+        signals.forEach(function (s) {
+          if (map[s]) lines.push(map[s]);
+        });
+        lines.push("传销 / 会销识别：封闭会场、限时抢购、拉人头奖励、攻击正规医院——我会直接离场并告知家人，必要时 12315。");
+        return lines;
+      }
+
+      const WELLNESS_SPORT_LIBRARY = {
+        outdoor: [
+          { name: "登山", elements: ["木", "火"], intensity: 3, knee: 3, hint: "40–60 分钟缓坡" },
+          { name: "徒步", elements: ["木", "土"], intensity: 2, knee: 2, hint: "50 分钟平路" },
+          { name: "高尔夫", elements: ["木", "金"], intensity: 2, knee: 2, hint: "18 洞轻走" },
+          { name: "户外慢跑", elements: ["火", "木"], intensity: 3, knee: 2, hint: "25–35 分钟" },
+          { name: "水上游泳", elements: ["水", "金"], intensity: 2, knee: 1, hint: "30 分钟恒温池" }
+        ],
+        ball: [
+          { name: "羽毛球", elements: ["木", "火"], intensity: 3, knee: 2, hint: "轻度挥拍 30 分钟" },
+          { name: "乒乓球", elements: ["火", "水"], intensity: 2, knee: 1, hint: "40 分钟对练" },
+          { name: "网球", elements: ["火", "木"], intensity: 3, knee: 2, hint: "双打或墙练 30 分钟" },
+          { name: "门球", elements: ["土", "金"], intensity: 1, knee: 1, hint: "60 分钟社交步" }
+        ],
+        traditional: [
+          { name: "八段锦", elements: ["土", "木"], intensity: 1, knee: 1, hint: "15–20 分钟" },
+          { name: "太极拳", elements: ["水", "土"], intensity: 1, knee: 1, hint: "30 分钟" },
+          { name: "舒缓瑜伽", elements: ["水", "木"], intensity: 1, knee: 1, hint: "25 分钟" },
+          { name: "交谊舞/广场舞", elements: ["火", "土"], intensity: 2, knee: 2, hint: "40 分钟" },
+          { name: "定点投篮", elements: ["火", "金"], intensity: 2, knee: 1, hint: "30 分钟" }
+        ]
+      };
+
+      const SPORT_CATEGORY_LABEL = {
+        outdoor: "户外 / 山水",
+        ball: "球类 / 挥拍",
+        traditional: "传统养生 / 室内"
+      };
+
+      function flattenSportLibrary() {
+        const out = [];
+        Object.keys(WELLNESS_SPORT_LIBRARY).forEach(function (cat) {
+          WELLNESS_SPORT_LIBRARY[cat].forEach(function (s) {
+            out.push(Object.assign({ cat: cat }, s));
+          });
+        });
+        return out;
+      }
+
+      function monthExerciseTheme(monthEl, dm) {
+        const map = {
+          木: "疏肝健脾、舒展筋骨",
+          火: "微汗养心、忌正午暴晒",
+          土: "健脾化湿、稳步为宜",
+          金: "润肺行气、呼吸深长",
+          水: "护膝养阴、缓行藏精"
+        };
+        let t = map[monthEl] || map.土;
+        if (dm === "木" && monthEl === "金") t += "（金克木，宜减量、重拉伸）";
+        if (dm === "水" && monthEl === "土") t += "（土克水，注意补水与膝踝）";
+        return t;
+      }
+
+      function sportFitnessScore(sport, ctx) {
+        let score = 50;
+        if (sport.elements.indexOf(ctx.monthEl) >= 0) score += 18;
+        if (sport.elements.indexOf(ctx.dm) >= 0) score += 12;
+        if (sport.intensity <= ctx.maxIntensity) score += 10;
+        else score -= 25;
+        if (ctx.lowKnee && sport.knee <= 2) score += 14;
+        if (ctx.lowKnee && sport.knee >= 3) score -= 30;
+        if (ctx.needCardio && sport.intensity >= 2) score += 8;
+        if (ctx.calmMonth && sport.intensity === 1) score += 10;
+        score += (sport.name.charCodeAt(0) + ctx.dm.charCodeAt(0)) % 7;
+        return score;
+      }
+
+      function buildWellnessMovementGuide(space, signals, bazi) {
+        const monthEl = space.monthEl;
+        const dm = bazi.element;
+        const walkBase = 18 + (bazi.dayMaster.charCodeAt(0) % 7);
+        const lines = [];
+        const monthTone = {
+          木: { move: "舒展", avoid: "生闷气、熬夜动怒、突然高强度越野" },
+          火: { move: "微汗", avoid: "正午暴晒下剧烈运动、情绪大喜大悲" },
+          土: { move: "稳行", avoid: "饭后立刻重训、久坐后猛起猛跑" },
+          金: { move: "清润", avoid: "干燥大风天长跑、过度扩胸跳操伤肩" },
+          水: { move: "缓行", avoid: "大汗后贪凉、冬泳级刺激、大幅度伤膝爬山" }
+        };
+        const tone = monthTone[monthEl] || monthTone.土;
+        const theme = monthExerciseTheme(monthEl, dm);
+        let maxIntensity = 3;
+        const lowKnee = signals.indexOf("bone") >= 0 || signals.indexOf("uric") >= 0;
+        const needCardio = signals.indexOf("lipid") >= 0 || signals.indexOf("bp") >= 0 || signals.indexOf("glucose") >= 0;
+        const calmMonth = monthEl === "水" || monthEl === "土" || signals.indexOf("heart") >= 0;
+        if (lowKnee || calmMonth) maxIntensity = 2;
+        if (lowKnee && signals.indexOf("bone") >= 0) maxIntensity = 1;
+
+        const ctx = { monthEl: monthEl, dm: dm, maxIntensity: maxIntensity, lowKnee: lowKnee, needCardio: needCardio, calmMonth: calmMonth };
+        const ranked = flattenSportLibrary()
+          .map(function (s) {
+            return { sport: s, score: sportFitnessScore(s, ctx) };
+          })
+          .sort(function (a, b) { return b.score - a.score; });
+
+        const primary = ranked[0] ? ranked[0].sport : WELLNESS_SPORT_LIBRARY.traditional[0];
+        let secondary = ranked[1] ? ranked[1].sport : WELLNESS_SPORT_LIBRARY.outdoor[1];
+        if (secondary.name === primary.name && ranked[2]) secondary = ranked[2].sport;
+
+        const comboLine =
+          "本月流月宜" + theme + "，今日推荐：" +
+          primary.name + " " + primary.hint + " / " + secondary.name + " " + secondary.hint;
+
+        lines.push("顺时总纲：流月「" + space.liuyue + "」属" + monthEl + "气，日主「" + dm + "」；宜" + tone.move + "，忌躁进。");
+        lines.push("智能运动 combo：" + comboLine);
+        lines.push("全库参考（户外 / 球类 / 养生）：登山、徒步、高尔夫、慢跑、游泳；羽毛球、乒乓球、网球、门球；八段锦、太极、瑜伽、广场舞、投篮——按体力与医嘱自选。");
+        if (maxIntensity <= 1) {
+          lines.push("本月宜护膝养阴：优先太极 / 八段锦 / 游泳 / 门球；登山与高强度挥拍减量。");
+        } else if (maxIntensity === 2) {
+          lines.push("中等强度：可高尔夫 18 洞、徒步 " + walkBase + " 分钟、羽毛球轻度挥拍；避免台阶冲刺。");
+        } else {
+          lines.push("强度尚可：可户外慢跑 " + (walkBase + 8) + " 分钟或网球墙练；仍须热身与收操。");
+        }
+        lines.push("禁忌：" + tone.avoid + "。");
+        if (lowKnee) lines.push("关节专项：上下楼扶稳；游泳选恒温池，忌冷刺激。");
+        if (signals.indexOf("bp") >= 0) lines.push("血压专项：运动前后测压；头晕即停。");
+        lines.push("起居：腰腹与关节保暖；22:30 前收屏，防跌倒。");
+
+        const hotNames = [primary.name, secondary.name];
+        ranked.slice(0, 4).forEach(function (r) {
+          if (hotNames.indexOf(r.sport.name) < 0) hotNames.push(r.sport.name);
+        });
+
+        return {
+          lines: lines,
+          comboLine: comboLine,
+          theme: theme,
+          primary: primary,
+          secondary: secondary,
+          hotNames: hotNames,
+          maxIntensity: maxIntensity
+        };
+      }
+
+      function renderSportCatalogHtml(hotNames) {
+        let html = '<div class="wellness-sport-catalog">';
+        Object.keys(WELLNESS_SPORT_LIBRARY).forEach(function (cat) {
+          html += "<h5>" + escHtml(SPORT_CATEGORY_LABEL[cat]) + "</h5><div class=\"wellness-sport-chips\">";
+          WELLNESS_SPORT_LIBRARY[cat].forEach(function (s) {
+            const hot = hotNames.indexOf(s.name) >= 0 ? " hot" : "";
+            html += '<span class="wellness-sport-chip' + hot + '">' + escHtml(s.name) + "</span>";
+          });
+          html += "</div>";
+        });
+        html += "</div>";
+        return html;
+      }
+
+      function wellnessCheckInStorageKey() {
+        const d = new Date();
+        return "weai-wellness-checkin-" + d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+      }
+
+      function loadWellnessCheckInToday() {
+        try {
+          const raw = localStorage.getItem(wellnessCheckInStorageKey());
+          return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function saveWellnessCheckInToday(record) {
+        try {
+          localStorage.setItem(wellnessCheckInStorageKey(), JSON.stringify(record));
+        } catch (err) {}
+        state.wellnessCheckInRecord = record;
+      }
+
+      function formatWellnessCheckInShare(record, comboLine) {
+        const d = new Date();
+        const dateStr = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
+        const lines = [];
+        lines.push("【岁悦长青 · 今日运动打卡】");
+        lines.push("日期：" + dateStr);
+        if (comboLine) lines.push("顺时推荐：" + comboLine);
+        lines.push("完成项目：" + (record.sport || "—"));
+        lines.push("时长：" + (record.minutes || "—") + " 分钟");
+        if (record.note) lines.push("备注：" + record.note);
+        lines.push("—— 来自岁悦长青 · 五行调理与健康，非医疗处方 ——");
+        return lines.join("\n");
+      }
+
+      function bindWellnessCheckInHandlers(plan) {
+        const doneBox = $("wellnessCheckInDone");
+        const existing = loadWellnessCheckInToday();
+        if (existing && doneBox) {
+          doneBox.hidden = false;
+          doneBox.textContent = "✅ 今日已打卡：" + existing.sport + " · " + existing.minutes + " 分钟";
+          state.wellnessCheckInRecord = existing;
+        }
+
+        $("wellnessCheckInBtn").addEventListener("click", function () {
+          const sport = ($("wellnessCheckInSport").value || "").trim();
+          const mins = Number($("wellnessCheckInMins").value);
+          const note = ($("wellnessCheckInNote").value || "").trim();
+          if (!sport) {
+            $("wellnessCheckInSport").focus();
+            return;
+          }
+          if (!mins || mins < 1) {
+            $("wellnessCheckInMins").focus();
+            return;
+          }
+          const record = { sport: sport, minutes: mins, note: note, at: new Date().toISOString() };
+          saveWellnessCheckInToday(record);
+          if (doneBox) {
+            doneBox.hidden = false;
+            doneBox.textContent = "✅ 今日已打卡：" + sport + " · " + mins + " 分钟";
+          }
+          appendCheckInToShareList(record, plan.comboLine);
+        });
+
+        $("wellnessCheckInShareBtn").addEventListener("click", function () {
+          const record = state.wellnessCheckInRecord || loadWellnessCheckInToday();
+          if (!record) {
+            if (doneBox) {
+              doneBox.hidden = false;
+              doneBox.textContent = "请先完成今日运动打卡，再分享给子女或微信群。";
+            }
+            return;
+          }
+          shareWellnessCheckInText(formatWellnessCheckInShare(record, plan.comboLine));
+        });
+      }
+
+      function appendCheckInToShareList(record, comboLine) {
+        if (!state.wellnessShoppingList) return;
+        const block = "\n⑤ 今日运动打卡\n· " + record.sport + " · " + record.minutes + " 分钟\n";
+        if (!state.wellnessShoppingList.includes("⑤ 今日运动打卡")) {
+          state.wellnessShoppingList += block;
+        }
+      }
+
+      async function shareWellnessCheckInText(text) {
+        const hint = $("wellnessCheckInDone");
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+          if (hint) {
+            hint.hidden = false;
+            hint.textContent = "✅ 打卡成绩已复制，可粘贴到微信发给子女或群友。";
+          }
+        } catch (err) {
+          if (hint) {
+            hint.hidden = false;
+            hint.textContent = "复制失败，请长按手动复制打卡内容。";
+          }
+        }
+      }
+
+      function renderWellnessCheckInHtml(plan) {
+        const all = flattenSportLibrary();
+        const opts = [];
+        [plan.primary, plan.secondary].forEach(function (s) {
+          if (s && opts.indexOf(s.name) < 0) opts.push(s.name);
+        });
+        all.forEach(function (s) {
+          if (opts.indexOf(s.name) < 0) opts.push(s.name);
+        });
+        let optHtml = "";
+        opts.forEach(function (name, i) {
+          optHtml += '<option value="' + escHtml(name) + '"' + (i === 0 ? " selected" : "") + ">" + escHtml(name) + "</option>";
+        });
+        return (
+          '<div class="wellness-checkin">' +
+          "<h5>🏃 今日运动打卡</h5>" +
+          '<div class="wellness-checkin-row">' +
+          '<select id="wellnessCheckInSport" aria-label="运动项目">' + optHtml + "</select>" +
+          '<input id="wellnessCheckInMins" class="text-input" type="number" min="1" max="300" placeholder="时长（分钟）" value="30" />' +
+          '<input id="wellnessCheckInNote" class="text-input" type="text" placeholder="可选：如「和老友门球」「泳池 25 米 × 20」" />' +
+          "</div>" +
+          '<div class="wellness-checkin-actions">' +
+          '<button type="button" class="btn btn-primary" id="wellnessCheckInBtn">完成打卡</button>' +
+          '<button type="button" class="btn btn-ghost" id="wellnessCheckInShareBtn">📤 分享打卡给子女 / 微信群</button>' +
+          "</div>" +
+          '<p class="wellness-checkin-done" id="wellnessCheckInDone" hidden></p>' +
+          "</div>"
+        );
+      }
+
+      function syncHealthBirthFromPeers() {
+        const hb = $("healthBirth");
+        if (!hb) return;
+        const peer = ($("styleBirth").value || $("letterBirth").value || "").trim();
+        if (peer && !(hb.value || "").trim()) hb.value = peer;
+      }
+
+      function persistHealthBirth() {
+        try {
+          const v = ($("healthBirth").value || "").trim();
+          if (v) localStorage.setItem("weai-wellness-birth", v);
+        } catch (err) {}
+      }
+
+      const WELLNESS_SUPPLEMENTS = [
+        {
+          id: "omega3",
+          cat: "心脑血管 · 脂类",
+          name: "高纯度 Omega-3 鱼油",
+          when: "血脂偏高、血管养护需求；医生评估后可作膳食辅助（不能替代他汀等处方药）",
+          dose: "常见每日 EPA+DHA 合计约 1000–2000 mg，随含脂餐服用；黄金参考配比 EPA : DHA ≈ 3 : 2 或 2 : 1（看总含量，不是看广告「深海」二字）",
+          pitfalls: "配料表第一行应是「鱼油 / 浓缩鱼油」，标清每粒 EPA、DHA 毫克数；警惕「溶栓、清血管、替代药物」会销。若在用华法林等抗凝药，先问医生。",
+          buy: "优先 IFOS / GOED 等第三方检测背书、或 Nordic Naturals、Life Extension、汤臣倍健 / 澳佳宝等品牌官方旗舰店；拒绝三无「会议专供」"
+        },
+        {
+          id: "coq10",
+          cat: "心肌能量 · 抗疲劳",
+          name: "辅酶 Q10（CoQ10）",
+          when: "易疲劳、活动后心慌、部分他汀用药者（遵医嘱）需关注辅酶水平",
+          dose: "泛醇（还原型）吸收通常优于泛醌；常见 100–200 mg / 日，随餐；改善需 4–8 周，非「当场见效」神药",
+          pitfalls: "看活性形式（Ubiquinol / 泛醇）与每粒含量；不买「心脏复活、停药用这个」类话术。配料少、氧化稳定（深色瓶、避光）更靠谱。",
+          buy: "Kaneka 原料、Qunol、Doctor's Best、健安喜等正规渠道；国药蓝帽子仅适用于获批保健功能产品，进口膳食补充剂看跨境溯源与批次报告"
+        },
+        {
+          id: "lutein",
+          cat: "视觉养护 · 黄斑",
+          name: "叶黄素 + 玉米黄质",
+          when: "中老年视力养护、长期屏幕用眼、黄斑变性风险关注人群（家族史、高度近视等）",
+          dose: "常见叶黄素 10–20 mg / 日，玉米黄质约 2–4 mg / 日，随餐；与 β-胡萝卜素超量叠加无益，选「游离型叶黄素」吸收更友好",
+          pitfalls: "看是否标明 FloraGLO / 游离型、叶黄素与玉米黄质比例约 5 : 1；拒绝「恢复视力、不用戴眼镜」虚假宣传。",
+          buy: "AREDS2 思路可参考（非治疗）；选 Bausch+Lomb、普丽普莱、汤臣倍健「越橘叶黄素」等官方旗舰店，核对每粒含量而非「多合一」模糊配方"
+        },
+        {
+          id: "d3k2",
+          cat: "骨骼 · 钙代谢",
+          name: "维生素 D3 + K2（MK-7）",
+          when: "少晒太阳、骨密度偏低、腿软抽筋、需要让钙「进骨不进血管」的养护人群",
+          dose: "D3 常见 1000–2000 IU / 日（以 25-OH-VD 化验为准调整）；K2（MK-7）约 90–120 μg / 日，常与 D3 同服；钙剂单独补需医生评估总量",
+          pitfalls: "D3 看 IU 含量，K2 看形式（MK-7 半衰期较长）；警惕「高钙 + 无 K2」长期盲目补钙。肾病患者、华法林使用者须医生指导。",
+          buy: "Thorne、Sports Research、Doctor's Best 或国内「蓝帽子」钙维 D 产品 + 单独 K2 组合；京东健康 / 阿里健康品牌旗舰，查 SC / 进口备案，不买会销「纳米钙」概念货"
+        }
+      ];
+
+      function supplementRelevant(id, signals) {
+        if (!signals.length) return id === "d3k2" || id === "omega3";
+        if (id === "omega3" && (signals.indexOf("lipid") >= 0 || signals.indexOf("bp") >= 0)) return true;
+        if (id === "coq10" && (signals.indexOf("heart") >= 0 || signals.indexOf("sleep") >= 0 || signals.indexOf("lipid") >= 0)) return true;
+        if (id === "lutein" && signals.indexOf("vision") >= 0) return true;
+        if (id === "d3k2" && signals.indexOf("bone") >= 0) return true;
+        return false;
+      }
+
+      function renderWellnessSupplementCard(s, relevant) {
+        const hot = relevant ? '<span class="tag tag-hot">与我的描述更相关</span>' : "";
+        return (
+          '<article class="wellness-supplement' + (relevant ? " relevant" : "") + '">' +
+          '<span class="tag">' + escHtml(s.cat) + "</span>" + hot +
+          "<strong>" + escHtml(s.name) + "</strong>" +
+          '<p class="sup-block"><strong>适用人群：</strong>' + escHtml(s.when) + "</p>" +
+          '<p class="sup-block"><strong>科学用法：</strong>' + escHtml(s.dose) + "</p>" +
+          '<p class="sup-block"><strong>配料表避坑：</strong>' + escHtml(s.pitfalls) + "</p>" +
+          '<p class="sup-block"><strong>正规购买：</strong>' + escHtml(s.buy) + "</p>" +
+          "</article>"
+        );
+      }
+
+      function buildWellnessShoppingList(payload) {
+        const lines = [];
+        lines.push("【岁悦长青 · 健康 · 运动 · 营养闭环清单】");
+        lines.push("");
+        lines.push("① 时空健康预警");
+        (payload.temporal || []).forEach(function (l) { lines.push("· " + l); });
+        lines.push("");
+        lines.push("② 体检 / 病例解读要点");
+        (payload.report || []).forEach(function (l) { lines.push("· " + l); });
+        lines.push("");
+        lines.push("③ 顺时运动与起居");
+        if (payload.comboLine) lines.push("· " + payload.comboLine);
+        (payload.movement || []).forEach(function (l) { lines.push("· " + l); });
+        if (payload.checkIn) {
+          lines.push("· 今日打卡：" + payload.checkIn.sport + " " + payload.checkIn.minutes + " 分钟");
+        }
+        lines.push("");
+        lines.push("④ 营养补充（类别级，请子女代购前与医生核对）");
+        lines.push("处方摘要：" + payload.rx);
+        if (payload.signals && payload.signals.length) {
+          lines.push("关注方向：" + payload.signals.join("、"));
+        }
+        lines.push("");
+        WELLNESS_SUPPLEMENTS.forEach(function (s, i) {
+          const rel = supplementRelevant(s.id, payload.signals || []);
+          lines.push((i + 1) + ". " + s.name + (rel ? "（优先）" : ""));
+          lines.push("   用法：" + s.dose);
+          lines.push("   购买：" + s.buy);
+          lines.push("");
+        });
+        lines.push("提醒：拒绝会销、拉人头、包治百病；淘宝 / 京东品牌旗舰或连锁药房；清单供子女核对，非医疗处方。");
+        return lines.join("\n");
+      }
+
+      function openWellnessShareModal() {
+        if (!state.wellnessShoppingList) {
+          $("wellnessShareText").value = "请先填写生辰并生成「四维健康闭环报告」，再发送清单。";
+        } else {
+          $("wellnessShareText").value = state.wellnessShoppingList;
+        }
+        $("wellnessShareCopyHint").hidden = true;
+        $("wellnessShareModal").classList.add("show");
+      }
+
+      function closeWellnessShareModal() {
+        $("wellnessShareModal").classList.remove("show");
+      }
+
+      async function copyWellnessShoppingList() {
+        const text = ($("wellnessShareText").value || "").trim();
+        const hint = $("wellnessShareCopyHint");
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            $("wellnessShareText").removeAttribute("readonly");
+            $("wellnessShareText").focus();
+            $("wellnessShareText").select();
+            document.execCommand("copy");
+            $("wellnessShareText").setAttribute("readonly", "readonly");
+          }
+          hint.textContent = "✅ 清单已复制，可粘贴到微信发给子女代购或核对。";
+          hint.hidden = false;
+        } catch (err) {
+          hint.textContent = "请长按上方文字全选后，手动复制发送。";
+          hint.hidden = false;
+        }
+      }
+
+      function listToUl(lines) {
+        let html = "<ul>";
+        lines.forEach(function (l) {
+          html += "<li>" + escHtml(l) + "</li>";
+        });
+        html += "</ul>";
+        return html;
+      }
+
+      function renderWellnessPlan() {
+        if (!hasWellnessLegalAck()) {
+          openLegalDisclaimerModal(true);
+          return;
+        }
+        syncHealthBirthFromPeers();
+        persistHealthBirth();
+        const birthRaw = ($("healthBirth").value || $("styleBirth").value || $("letterBirth").value || "").trim();
+        const iso = parseBirthText(birthRaw);
+        const text = ($("healthText").value || "").trim();
+        const hasFile = $("healthReport").files && $("healthReport").files.length;
+        if (!iso) {
+          $("wellnessResult").innerHTML = '<p class="hint">请先填写生辰八字，以联动流年、流月时空磁场。</p>';
+          $("healthBirth").focus();
+          return;
+        }
+        if (!text && !hasFile) {
+          $("wellnessResult").innerHTML = '<p class="hint">请上传体检单 / 病历，或用文字、语音描述症状。</p>';
+          return;
+        }
+        let merged = text;
+        if (hasFile) {
+          const names = [];
+          for (let i = 0; i < $("healthReport").files.length; i++) {
+            names.push($("healthReport").files[i].name);
+          }
+          merged += " 报告文件：" + names.join("、");
+        }
+        const signals = parseHealthSignals(merged);
+        const bazi = calcBazi(iso, "");
+        if (!bazi) {
+          $("wellnessResult").innerHTML = '<p class="hint">生辰格式未识别，请用如 19550615 或 1955年6月15日。</p>';
+          return;
+        }
+        const space = currentSpacetimeMagnetism();
+        const temporalLines = buildTemporalHealthWarning(bazi, space);
+        const reportLines = parseHealthReportPlain(merged, signals, hasFile);
+        const movementPlan = buildWellnessMovementGuide(space, signals, bazi);
+        const movementLines = movementPlan.lines;
+        state.wellnessSportPlan = movementPlan;
+        const checkInToday = loadWellnessCheckInToday();
+        state.wellnessCheckInRecord = checkInToday;
+
+        let supHtml = "";
+        WELLNESS_SUPPLEMENTS.forEach(function (s) {
+          supHtml += renderWellnessSupplementCard(s, supplementRelevant(s.id, signals));
+        });
+
+        let rx = "膳食总原则：清淡、足量蛋白与蔬菜，少盐少糖；指标异常我会复诊，不擅自停处方药。";
+        if (signals.indexOf("bp") >= 0) rx = "血压：我打算早晚各测一次并记录，带去医院复诊；DASH 饮食、控盐，遵医嘱用药，不被「降压神品」忽悠。";
+        if (signals.indexOf("glucose") >= 0) rx = "血糖：少精白米面、餐后散步；遵医嘱测糖，不买「根治糖尿病」类保健品。";
+        if (signals.indexOf("uric") >= 0) rx = "尿酸：少海鲜啤酒内脏，多喝水；急性痛风发作及时就医。";
+        if (signals.indexOf("heart") >= 0) rx = "心慌 / 心累：我先记录发作情境与用药清单，就医排查；辅酶 Q10 等仅作营养辅助，不替代治疗。";
+        if (signals.indexOf("vision") >= 0) rx = "视力：定期眼科检查（含眼底），叶黄素类为养护辅助，不迷信「恢复视力」宣传。";
+
+        state.wellnessShoppingList = buildWellnessShoppingList({
+          temporal: temporalLines,
+          report: reportLines,
+          movement: movementLines,
+          comboLine: movementPlan.comboLine,
+          checkIn: checkInToday,
+          rx: rx,
+          signals: signals
+        });
+
+        const baziSnippet = renderBaziCardHTML(bazi);
+
+        $("wellnessResult").innerHTML =
+          '<div class="wellness-warn">⚠️ 我守护自己的底线：拒绝虚假传销与「包治百病」会销——当场交钱、拉人头、代替医院的产品，一律说不，并可拨打 12315 咨询。</div>' +
+          baziSnippet +
+          '<article class="module-result">' +
+          '<section class="wellness-sector">' +
+          "<h4>① 时空健康预警</h4>" +
+          '<div class="wellness-spacetime-badge">' +
+          "<span>流年 " + escHtml(space.liunian) + "</span>" +
+          "<span>流月 " + escHtml(space.liuyue) + "</span>" +
+          "<span>当令 " + escHtml(space.monthEl) + " · " + escHtml(space.monthOrgan) + "</span>" +
+          "</div>" +
+          listToUl(temporalLines) +
+          "</section>" +
+          '<section class="wellness-sector">' +
+          "<h4>② 病例与体检直通解析</h4>" +
+          listToUl(reportLines) +
+          "</section>" +
+          '<section class="wellness-sector">' +
+          "<h4>③ 精准营养品防御</h4>" +
+          "<p class=\"hint\">针对我的情况，下列四类为核心膳食补充方向；对照配料表与含量，不为一盒「概念」买单。</p>" +
+          "<p><strong>膳食处方摘要：</strong>" + escHtml(rx) + "</p>" +
+          supHtml +
+          "<p class=\"hint\">以上为类别级指引，非个体医疗建议。我会请医生 / 药师核对与现有用药是否冲突后再买。</p>" +
+          "</section>" +
+          '<section class="wellness-sector">' +
+          "<h4>④ 顺时运动与日常起居禁忌</h4>" +
+          '<p class="wellness-exercise-combo"><strong>顺时运动 combo</strong>：' + escHtml(movementPlan.comboLine) + "</p>" +
+          listToUl(movementLines) +
+          renderSportCatalogHtml(movementPlan.hotNames) +
+          renderWellnessCheckInHtml(movementPlan) +
+          "</section>" +
+          '<div class="wellness-forward-wrap">' +
+          '<button type="button" class="wellness-forward-btn" id="wellnessShareBtn">📤 一键发送健康、运动与营养清单给子女代购 / 核对</button>' +
+          "<p class=\"hint\" style=\"margin-top:10px;\">含时空预警、体检解读、顺时运动 combo、打卡记录与营养采购，可复制发给子女或微信群。</p>" +
+          "</div>" +
+          "</article>";
+        $("wellnessShareBtn").addEventListener("click", openWellnessShareModal);
+        bindWellnessCheckInHandlers(movementPlan);
+        $("wellnessResult").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function healthVoiceMemo() {
+        const area = $("healthText");
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) {
+          area.focus();
+          return;
+        }
+        const btn = $("healthVoiceBtn");
+        btn.disabled = true;
+        btn.textContent = "🎙️ 正在听您说……";
+        let done = false;
+        const finish = function (words) {
+          if (done) return;
+          done = true;
+          btn.disabled = false;
+          btn.textContent = "🎙️ 语音描述身体情况";
+          if (words) {
+            const cur = (area.value || "").trim();
+            area.value = cur ? cur + " " + words : words;
+          }
+        };
+        setTimeout(function () { finish(""); }, 8000);
+        try {
+          const rec = new SpeechRec();
+          rec.lang = "zh-CN";
+          rec.onresult = function (e) {
+            finish(e.results[0][0].transcript);
+          };
+          rec.onerror = function () { finish(""); };
+          rec.start();
+        } catch (err) {
+          finish("");
+        }
+      }
+
+      function renderTwin() {
+        const date = $("twinDate").value;
+        const box = $("twinResult");
+        const bazi = calcBazi(date, "");
+        if (!bazi) {
+          box.innerHTML = "<p class='hint'>请先写下生辰。</p>";
+          return;
+        }
+        const max = Math.max.apply(null, Object.keys(bazi.counts).map(function (k) { return bazi.counts[k]; })) || 1;
+        const order = ["木", "火", "土", "金", "水"];
+        const cls = { 木: "wood", 火: "fire", 土: "earth", 金: "metal", 水: "water" };
+        let bars = "";
+        order.forEach(function (el) {
+          const pct = Math.round(bazi.counts[el] / max * 100);
+          bars += '<div class="bar-row"><span>' + el + '</span><div class="bar-track"><div class="bar-fill ' + cls[el] + '" data-w="' + pct + '"></div></div><span>' + bazi.counts[el] + "</span></div>";
+        });
+        const picked = TWIN_POOL
+          .map(function (p) { return Object.assign({}, p, { pct: resonance(bazi.element, p.el) }); })
+          .sort(function (a, b) { return b.pct - a.pct; })
+          .slice(0, 3);
+        let cards = "";
+        picked.forEach(function (p) {
+          cards += '<article class="twin-card"><strong>' + p.name + " · " + p.age + "岁 · " + p.city +
+            '</strong> <span class="pct">同频 ' + p.pct + "%</span><div class='hint'>日主偏" + p.el + " · " + p.note + "</div></article>";
+        });
+        box.innerHTML =
+          '<div class="ripple">同频</div>' +
+          '<p>您的日主：<strong>' + bazi.label + "</strong></p>" +
+          '<div class="bars">' + bars + "</div>" +
+          "<p class='hint'>以下是跨年龄段的同频灵魂档案，不是替代亲人，是世界某处，也有人与您气韵相近。</p>" +
+          '<div class="twin-grid">' + cards + "</div>";
+        requestAnimationFrame(function () {
+          box.querySelectorAll(".bar-fill").forEach(function (el) {
+            el.style.width = el.getAttribute("data-w") + "%";
+          });
+        });
+      }
+
+      function switchTab(name) {
+        state.tab = name;
+        document.querySelectorAll(".tab").forEach(function (t) {
+          t.classList.toggle("active", t.getAttribute("data-tab") === name);
+        });
+        document.querySelectorAll(".panel").forEach(function (p) {
+          const on = p.id === "panel-" + name;
+          p.classList.toggle("active", on);
+          p.hidden = !on;
+        });
+        if (name === "memory") startLetterPanel();
+        if (name === "wellness") maybePromptWellnessLegal();
+      }
+
+      document.querySelectorAll(".tab").forEach(function (btn) {
+        btn.addEventListener("click", function () { switchTab(btn.getAttribute("data-tab")); });
+      });
+
+      document.querySelectorAll(".realm-tab").forEach(function (btn) {
+        btn.addEventListener("click", function () { setRealm(btn.getAttribute("data-realm")); });
+      });
+
+      function saveName() {
+        state.name = ($("userName").value || "").trim();
+        try { localStorage.setItem("weai-name", state.name); } catch (err) {}
+      }
+      $("userName").addEventListener("change", saveName);
+      $("userName").addEventListener("input", saveName);
+
+      $("pfRelation").addEventListener("change", function () {
+        $("pfRelationCustom").style.display = $("pfRelation").value === "custom" ? "block" : "none";
+      });
+      $("pfBirth").addEventListener("input", previewPfBazi);
+      $("pfBirth").addEventListener("change", previewPfBazi);
+      $("pfVoiceBtn").addEventListener("click", function () {
+        simulateProfileVoice();
+        try { $("pfAudio").click(); } catch (err) {}
+      });
+      $("pfAudio").addEventListener("change", function () {
+        if ($("pfAudio").files && $("pfAudio").files[0]) simulateProfileVoice();
+      });
+      $("pfSave").addEventListener("click", saveNewProfile);
+      $("pfCancel").addEventListener("click", closeProfileModal);
+      $("profileModal").addEventListener("click", function (e) {
+        if (e.target === $("profileModal")) closeProfileModal();
+      });
+
+      $("sendBtn").addEventListener("click", sendDialogue);
+      $("userInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") sendDialogue();
+      });
+      $("cloneVoice").addEventListener("click", startClone);
+      $("voiceInputBtn").addEventListener("click", voiceInput);
+      $("letterBaziBtn").addEventListener("click", letterCalcFoundation);
+      $("letterDrawBtn").addEventListener("click", letterMeetSelf);
+      $("letterStartChatBtn").addEventListener("click", letterStartDialogue);
+      $("letterVoiceBtn").addEventListener("click", letterVoiceMemo);
+      $("letterStory").addEventListener("input", function () {
+        const base = parseLifeStory($("letterStory").value);
+        state.memoryBase = base;
+        if ((base.raw || "").length >= 8) showMemoryBaseHint(base);
+        else $("letterMemoryHint").classList.remove("show");
+      });
+      $("letterSend").addEventListener("click", sendLetter);
+      $("letterInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") sendLetter();
+      });
+      bindGuardianVoiceHold();
+      $("guardianAnalyze").addEventListener("click", renderGuardianReport);
+      $("guardianTextToggle").addEventListener("click", function () {
+        const area = $("guardianNarrative");
+        area.classList.toggle("show");
+        if (area.classList.contains("show")) area.focus();
+      });
+      $("guardianNarrative").addEventListener("input", syncGuardianPreview);
+      $("guardianBindSave").addEventListener("click", saveGuardianBindAndAlert);
+      $("guardianBindCancel").addEventListener("click", function () {
+        state.pendingGuardianAlert = false;
+        closeGuardianBindModal();
+      });
+      $("guardianBindModal").addEventListener("click", function (e) {
+        if (e.target === $("guardianBindModal")) {
+          state.pendingGuardianAlert = false;
+          closeGuardianBindModal();
+        }
+      });
+      $("matchTwin").addEventListener("click", renderTwin);
+      bindUploadTile("styleFaceFront", "styleFaceFrontTile", "styleFaceFrontHint", "看清眉骨与脸型");
+      bindUploadTile("styleFaceSide", "styleFaceSideTile", "styleFaceSideHint", "可选，辅助气质判断");
+      bindUploadTile("styleBody", "styleBodyTile", "styleBodyHint", "站姿自然，便于识体型与比例");
+      bindUploadTile("healthReport", "healthReportTile", "healthReportHint", "可多张，演示版仅读取文件名辅助解析");
+      $("styleAnalyze").addEventListener("click", renderStyleGuide);
+      $("healthAnalyze").addEventListener("click", renderWellnessPlan);
+      $("healthVoiceBtn").addEventListener("click", healthVoiceMemo);
+      $("healthBirth").addEventListener("blur", persistHealthBirth);
+      $("healthBirth").addEventListener("change", persistHealthBirth);
+      $("wellnessShareClose").addEventListener("click", closeWellnessShareModal);
+      $("wellnessShareCopy").addEventListener("click", copyWellnessShoppingList);
+      $("wellnessShareModal").addEventListener("click", function (e) {
+        if (e.target === $("wellnessShareModal")) closeWellnessShareModal();
+      });
+      $("openLegalDisclaimer").addEventListener("click", function () {
+        openLegalDisclaimerModal(false);
+      });
+      $("openLegalPrivacy").addEventListener("click", openLegalPrivacyModal);
+      $("legalDisclaimerAck").addEventListener("click", function () {
+        closeLegalDisclaimerModal(true);
+      });
+      $("legalPrivacyAck").addEventListener("click", closeLegalPrivacyModal);
+      $("legalDisclaimerModal").addEventListener("click", function (e) {
+        if (e.target === $("legalDisclaimerModal") && hasWellnessLegalAck()) {
+          closeLegalDisclaimerModal(false);
+        }
+      });
+      $("legalPrivacyModal").addEventListener("click", function (e) {
+        if (e.target === $("legalPrivacyModal")) closeLegalPrivacyModal();
+      });
+
+      try {
+        const saved = localStorage.getItem("weai-name");
+        if (saved) { state.name = saved; $("userName").value = saved; }
+        const wb = localStorage.getItem("weai-wellness-birth");
+        if (wb && $("healthBirth")) $("healthBirth").value = wb;
+      } catch (err) {}
+      syncHealthBirthFromPeers();
+      applyHomeGreeting();
+
+      state.profiles = loadProfiles();
+      persistProfiles();
+      state.roleId = "";
+      setRealm("living");
+      resetChat();
+    })();
+  </script>
+</body>
+</html>
